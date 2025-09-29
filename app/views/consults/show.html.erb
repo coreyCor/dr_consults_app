@@ -1,0 +1,18 @@
+<h1><%= @consult.title %></h1>
+<p><strong>Asked By:</strong> <%= @consult.asked_by.name %></p>
+<p><strong>Assigned To:</strong> <%= @consult.assigned_to&.name %></p>
+<p><strong>Status:</strong> <%= @consult.status_text %></p>
+<p><%= @consult.body %></p>
+
+<% if current_user == @consult.assigned_to && @consult.answer.nil? %>
+  <h3>Your reply:</h3>
+  <%= form_with model: [@consult, Answer.new], local: true do |f| %>
+    <div class="mb-3">
+      <%= f.text_area :body, class: "form-control" %>
+    </div>
+    <%= f.submit "Reply", class: "btn btn-primary" %>
+  <% end %>
+<% elsif @consult.answer %>
+  <h3>Answer</h3>
+  <p><%= @consult.answer.body %></p>
+<% end %>

@@ -1,0 +1,15 @@
+<h2>Consults Assigned to Me</h2>
+
+<% if @consults.any? %>
+  <ul>
+    <% @consults.each do |consult| %>
+      <li>
+        <%= link_to consult.title, consult_path(consult) %>
+        — Assigned by <%= consult.asked_by.name %>
+        <% if consult.pending? %>(Pending)<% else %>(Answered)<% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No consults currently assigned to you.</p>
+<% end %>

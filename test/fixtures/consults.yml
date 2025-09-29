@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  body: MyText
+  asked_by: one
+  assigned_to: one
+  status: 1
+  assigned_at: 2025-09-14 14:43:48
+
+two:
+  title: MyString
+  body: MyText
+  asked_by: two
+  assigned_to: two
+  status: 1
+  assigned_at: 2025-09-14 14:43:48

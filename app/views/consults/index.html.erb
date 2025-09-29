@@ -1,0 +1,19 @@
+
+
+
+
+<h2>My Asks</h2>
+
+<% if @consults.any? %>
+  <% @consults.each do |consult| %>
+    <div class="consult">
+      <h3><%= link_to consult.title, consult_path(consult) %></h3>
+      <p><%= truncate(consult.body, length: 100) %></p>
+      <p>Asked by: <%= consult.asked_by.name %></p>
+      <p>Assigned to: <%= consult.assigned_to&.name || "Unassigned" %></p>
+      <p>Status: <%= consult.status_text %></p>
+    </div>
+  <% end %>
+<% else %>
+  <p>No consults found.</p>
+<% end %>
