@@ -1,15 +1,24 @@
-<h2>Consults Assigned to Me</h2>
+<h2 class = "pageheader"><i>Assists asked of me</i></h3>
+
+
+<hr>
+<br>
+
 
 <% if @consults.any? %>
-  <ul>
-    <% @consults.each do |consult| %>
-      <li>
-        <%= link_to consult.title, consult_path(consult) %>
-        — Assigned by <%= consult.asked_by.name %>
-        <% if consult.pending? %>(Pending)<% else %>(Answered)<% end %>
-      </li>
-    <% end %>
-  </ul>
+  <% @consults.each do |consult| %>
+    <div class="consult mb-3 p-2 border rounded shadow-sm">
+      <h3><%= link_to consult.title, consult_path(consult) %></h3>
+      <p>Asked by: <%= consult.asked_by.name %></p>
+      <p>
+        Assigned:
+        <%= consult.assigned_at
+              .in_time_zone(current_user.time_zone)
+              .strftime("%b %d, %Y") %>
+      </p>
+      <p>Question: <%= truncate(consult.body, length: 100) %></p>
+    </div>
+  <% end %>
 <% else %>
   <p>No consults currently assigned to you.</p>
 <% end %>

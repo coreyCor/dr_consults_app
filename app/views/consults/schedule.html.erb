@@ -1,0 +1,66 @@
+<h2 class="pageheader"><i>Request an assist</i>
+
+</h2>
+<br>
+<hr>
+<br>
+
+<div class="row mt-4">
+  <% @users.each do |user| %>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <% if @eligible_users.include?(user) %>
+            <h4 class="pageheader">
+              <%= link_to user.name,
+                  new_consult_path(assigned_to_id: user.id),
+                  class: "text-primary fw-bold" %>
+                  &nbsp
+               
+
+            </h4>
+            <p class="text-success">Available For Assists</p>
+          <% else %>
+            <h4 class="text-muted pageheader"><%= user.name %>
+            &nbsp
+            <span class="material-symbols-outlined">pets</span>
+            
+            </h4>
+            <p class="text-secondary">Paused</p>
+          <% end %>
+
+          <% if user.availabilities.any? %>
+          <!--  <table class="table table-sm mt-3">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Start</th>
+                  <th>End</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% user.availabilities.each do |availability| %>
+                  <tr>
+                    <td><%= Date::DAYNAMES[availability.day_of_week] %></td>
+                    <td>
+                      <%= availability.start_time&.in_time_zone(user.time_zone)&.strftime("%I:%M %p") || "–" %>
+                    </td>
+                    <td>
+                      <%= availability.end_time&.in_time_zone(user.time_zone)&.strftime("%I:%M %p") || "–" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            -->
+          <% else %>
+            <p class="text-muted">No availability set</p>
+          <% end %>
+
+          <p class="text-muted"><strong>Time Zone:</strong> <%= user.time_zone %></p>
+          <p class="text-muted"><strong>Local Time:</strong> <%= user.local_time.strftime("%I:%M %p") %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

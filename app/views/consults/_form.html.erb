@@ -1,7 +1,7 @@
-<%= form_with(model: @consult, local: true, class: "needs-validation") do |f| %>
+<%= form_with(model: @consult, local: true) do |f| %>
   <% if @consult.errors.any? %>
     <div class="alert alert-danger">
-      <h4>There were errors:</h4>
+      <h4>Errors:</h4>
       <ul>
         <% @consult.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -10,20 +10,26 @@
     </div>
   <% end %>
 
-  <div class="mb-3">
-    <%= f.label :Accession, class: "form-label" %>
+  <div class="mb-3 shadow-sm">
+    <h4><%= f.label :accession, class: "form-label" %></h4>
     <%= f.text_field :title, class: "form-control", required: true %>
   </div>
 
-  <div class="mb-3">
-    <%= f.label :body, class: "form-label" %>
-    <%= f.text_area :body, class: "form-control", rows: 5, required: true %>
+  <div class="mb-3 shadow-sm">
+   <h4> <%= f.label :Question, class: "form-label" %></h4>
+    <%= f.text_area :body, class: "form-control", required: true %>
   </div>
 
-  <div class="mb-3">
-    <%= f.label :assigned_to_id, "Doctor:", class: "form-label" %>
-    <%= f.collection_select :assigned_to_id, @eligible_users, :id, :name, { prompt: "Select a doctor" }, { class: "form-select", required: true } %>
+  <div class="mb-3 shadow-sm">
+   <h4> <%= f.label :assigned_to_id, "Doctor:", class: "form-label" %></h4>
+    <%= f.collection_select :assigned_to_id,
+          @eligible_users || [], 
+          :id,
+          :name,
+          { prompt: "Select a doctor" },
+          { class: "form-select", required: true } %>
   </div>
 
-  <%= f.submit "Create Consult", class: "btn btn-primary" %>
+    <%= f.submit "Submit Assist", class: "btn btn-primary"%>
+ 
 <% end %>

@@ -1,34 +1,63 @@
-<h1>All Users</h1>
-
+<h2 class="pageheader"><i>All users</i></h2>
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
       <th>Email</th>
       <th>Role</th>
-      <th>Availability</th>
+      <th></th> 
       <th>Daily Limit</th>
       <th>Cooldown (min)</th>
-      <th>Actions</th>
+    <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @users.each do |user| %>
+    <% @users.order(:name).each do |user| %>
       <tr>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.user_role.capitalize %></td>
         <td>
-          <%= user.available_start_time&.strftime("%H:%M") %> - 
-          <%= user.available_end_time&.strftime("%H:%M") %>
-        </td>
+      </td> 
+
         <td><%= user.daily_consult_limit || "N/A" %></td>
         <td><%= user.cooldown_minutes || "N/A" %></td>
         <td>
+         
+<!--this is a test for schdule showing on main screen-->
+
+
+
+<% if user.availabilities.any? %>
+      <table class="table table-sm mt-3">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Start</th>
+                  <th>End</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% user.availabilities.order(:day_of_week).each do |availability| %>
+                  <tr>
+                    <td><%= Date::DAYNAMES[availability.day_of_week] %></td>
+                    <td>
+                      <%= availability.start_time&.strftime("%I:%M %p") || "–" %>
+                    </td>
+                    <td>
+                      <%= availability.end_time&.strftime("%I:%M %p") || "–" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+        </table>
+      <% end %>
+
           <%= link_to "Edit", edit_admin_user_path(user), class: "btn btn-sm btn-primary" %>
         </td>
       </tr>
     <% end %>
+    
   </tbody>
 </table>

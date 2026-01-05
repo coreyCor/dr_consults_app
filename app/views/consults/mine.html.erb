@@ -1,14 +1,34 @@
-<h2>My Asks</h2>
+
+<h2 class="pageheader"><i>Assists I requested </i></h2>
+
+<hr>
+<br>
 
 <% if @consults.any? %>
   <% @consults.each do |consult| %>
-    <div class="consult">
-      <h3><%= link_to consult.title, consult_path(consult) %></h3>
+    <div class="consult mb-3 p-2 border rounded shadow-sm">
+      <h4><%= link_to consult.title.capitalize, consult_path(consult), class: "text-primary" %></h4>
       <p><%= truncate(consult.body, length: 100) %></p>
       <p>Assigned to: <%= consult.assigned_to&.name || "Unassigned" %></p>
-      <p>Status: <%= consult.status_text %></p>
+      <p class="pageheader">
+        Asked on: <%= consult.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%b %d, %Y ") %>
+     
+     <!-- <p>Status: <%= consult.status_text%></p> -->
+
+      <% if consult.asked_by_id == current_user.id %>
+      <br>
+      <br>
+        <%= link_to "Edit", edit_consult_path(consult), class: "btn btn-sm btn-primary" %>
+
+       <!--  two comments <%= button_to "Delete", consult_path(consult),
+                      method: :delete,
+                      data: { confirm: "Are you sure you want to delete this consult?" },
+                      class: "btn btn-sm btn-danger",
+                      form_class: "d-inline" %> -->
+      <% end %>
     </div>
   <% end %>
 <% else %>
-  <p>You haven't asked any consults yet.</p>
+  <p>You haven't requested any assists yet.</p>
 <% end %>
+this is it

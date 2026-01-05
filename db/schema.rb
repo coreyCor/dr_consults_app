@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_16_054813) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_15_223547) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
+
   create_table "answers", force: :cascade do |t|
     t.text "body"
     t.integer "consult_id", null: false
@@ -19,6 +22,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_16_054813) do
     t.datetime "updated_at", null: false
     t.index ["consult_id"], name: "index_answers_on_consult_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
+  end
+
+  create_table "availabilities", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "day_of_week"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.time "start_time"
+    t.time "end_time"
+    t.integer "start_minute"
+    t.integer "end_minute"
+    t.index ["user_id"], name: "index_availabilities_on_user_id"
   end
 
   create_table "consults", force: :cascade do |t|
@@ -48,12 +63,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_16_054813) do
     t.time "available_end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "time_zone"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "answers", "consults"
   add_foreign_key "answers", "users"
+  add_foreign_key "availabilities", "users"
   add_foreign_key "consults", "users", column: "asked_by_id"
   add_foreign_key "consults", "users", column: "assigned_to_id"
 end

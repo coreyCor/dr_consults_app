@@ -38,14 +38,47 @@
   </div>
 
   <div class="mb-3">
-    <%= f.label :available_start_time %>
-    <%= f.time_field :available_start_time, value: @user.available_start_time&.strftime("%H:%M"), class: "form-control", step: 60 %>
+    <%= f.label :time_zone, "Time Zone" %>
+    <%= f.select :time_zone,
+      [
+        ["US Pacific", "Pacific Time (US & Canada)"],
+        ["US Central", "Central Time (US & Canada)"],
+        ["US Eastern", "Eastern Time (US & Canada)"],
+        ["United Kingdom", "London"]
+      ],
+      { prompt: "Select a Time Zone" },
+      class: "form-select"
+    %>
   </div>
 
-  <div class="mb-3">
-    <%= f.label :available_end_time %>
-    <%= f.time_field :available_end_time, value: @user.available_end_time&.strftime("%H:%M"), class: "form-control", step: 60 %>
-  </div>
+  <p class="text-muted">
+    User Time Zone: <%= @user.time_zone %> <br>
+    Current Local Time: <%= @user.local_time.strftime("%I:%M %p") %>
+  </p>
+
+  <h3>Weekly Availability</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Date::DAYNAMES.each_with_index do |day_name, i| %>
+        <% availability = @user.availability_for(i) || @user.availabilities.build(day_of_week: i) %>
+        <%= f.fields_for :availabilities, availability do |af| %>
+          <tr>
+            <td><%= day_name %></td>
+            <td><%= af.time_field :start_time, class: "form-control", step: 60 %></td>
+            <td><%= af.time_field :end_time, class: "form-control", step: 60 %></td>
+            <%= af.hidden_field :day_of_week, value: i %>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
 
   <%= f.submit "Update User", class: "btn btn-primary" %>
 <% end %>

@@ -1,8 +1,18 @@
-<h1><%= @consult.title %></h1>
+<h2 class="pageheader"><u>Accession: <%= @consult.title %></u></h2>
 <p><strong>Asked By:</strong> <%= @consult.asked_by.name %></p>
-<p><strong>Assigned To:</strong> <%= @consult.assigned_to&.name %></p>
-<p><strong>Status:</strong> <%= @consult.status_text %></p>
-<p><%= @consult.body %></p>
+<p><strong>Assigned To:</strong> <%= @consult.assigned_to&.name || "Unassigned" %></p>
+<!--<p><strong>Status:</strong> <%= @consult.status_text %></p>-->
+<p><strong>Question:</strong> <br> <h5><%= @consult.body %></h5></p>
+
+<% if @answer.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @answer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <% if current_user == @consult.assigned_to && @consult.answer.nil? %>
   <h3>Your reply:</h3>
@@ -12,7 +22,18 @@
     </div>
     <%= f.submit "Reply", class: "btn btn-primary" %>
   <% end %>
-<% elsif @consult.answer %>
-  <h3>Answer</h3>
-  <p><%= @consult.answer.body %></p>
+  
+<% elsif @consult.answer.present? %>
+<hr>
+  <h3><u>Your Response:</u></h3>
+  
+  <h5><%= @consult.answer.body %></h5>
+  <%= @consult.answer.user.name %>
 <% end %>
+
+
+<!--<%= button_to "Delete", consult_path(@consult),
+                      method: :delete,
+                      data: { confirm: "Are you sure you want to delete this consult?" },
+                      class: "btn btn-sm btn-danger",
+                      form_class: "d-inline" %> -->

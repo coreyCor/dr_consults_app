@@ -1,27 +1,37 @@
 class ConsultsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_consult, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_eligible_users, only: [ :new, :create, :edit, :update ]
+  before_action :authorize_owner!, only: [ :edit, :update, :destroy ]
 
   # GET /consults
   def index
-    @consults = Consult.all.order(created_at: :desc)
+    # @consults = current_user.asked_consults.order(created_at: :desc)
   end
 
   # GET /consults/new
+  # def new
+  # @consult = Consult.new
+  # end
+  #
   def new
-    @consult = Consult.new
-    @eligible_users = User.eligible_for_consults(exclude_user: current_user)
+  @consult = Consult.new
+
+  # Preassign the "assigned_to" user if passed from the schedule view
+  if params[:assigned_to_id].present?
+    @consult.assigned_to_id = params[:assigned_to_id]
   end
+  end
+
 
   # POST /consults
   def create
     @consult = current_user.asked_consults.build(consult_params)
-    @eligible_users = User.eligible_for_consults(exclude_user: current_user)
-
+    @consult.consult_status ||= Consult::STATUS_PENDING
     assigned_user = User.find_by(id: @consult.assigned_to_id)
 
     if assigned_user.nil? || !@eligible_users.include?(assigned_user)
-      flash[:alert] = assigned_user ? "#{assigned_user.name} is currently unavailable for a new consult." : "Please select a valid doctor."
+      flash[:alert] = assigned_user ? "#{assigned_user.name} is unavailable" : "Select a valid doctor."
       render :new, status: :unprocessable_entity and return
     end
 
@@ -38,21 +48,17 @@ class ConsultsController < ApplicationController
 
   # GET /consults/:id
   def show
-    # @question = current_user.questions.find(params[:id])
+    @answer = @consult.answer || Answer.new
   end
 
   # GET /consults/:id/edit
-  def edit
-    @eligible_users = User.eligible_for_consults(exclude_user: current_user)
-  end
+  def edit; end
 
   # PATCH/PUT /consults/:id
   def update
-    @eligible_users = User.eligible_for_consults(exclude_user: current_user)
-
     assigned_user = User.find_by(id: consult_params[:assigned_to_id])
     if assigned_user.nil? || !@eligible_users.include?(assigned_user)
-      flash[:alert] = assigned_user ? "#{assigned_user.name} is currently unavailable." : "Please select a valid doctor."
+      flash[:alert] = assigned_user ? "#{assigned_user.name} is unavailable" : "Select a valid doctor."
       render :edit, status: :unprocessable_entity and return
     end
 
@@ -86,6 +92,11 @@ class ConsultsController < ApplicationController
     @consults = current_user.assigned_consults.order(created_at: :desc)
   end
 
+  def schedule
+  @users = User.where.not(id: current_user.id).includes(:availabilities)
+  @eligible_users = User.eligible_for_consults(exclude_user: current_user)
+  end
+
   private
 
   def set_consult
@@ -95,4 +106,14 @@ class ConsultsController < ApplicationController
   def consult_params
     params.require(:consult).permit(:title, :body, :assigned_to_id)
   end
+
+  def set_eligible_users
+    @eligible_users = User.eligible_for_consults(exclude_user: current_user)
+  end
+
+    def authorize_owner!
+    unless @consult.asked_by_id == current_user.id
+      redirect_to consults_path, alert: "You are not authorized to modify this consult."
+    end
+    end
 end

@@ -1,7 +1,10 @@
-<h1>New Consult</h1>
-<%= render 'form', consult: @consult %>
+<h2 class="pageheader"><i>New assist request </i></h2>
 
-<!-- tryin the partial above instead. Dont uncomment please
+<hr>
+<br>
+<%= render 'form', consult: @consult %> 
+
+<!--
 <%= form_with(model: @consult, local: true) do |f| %>
   <div class="mb-3">
     <%= f.label :Accession %>
@@ -14,7 +17,7 @@
   </div>
 
   <div class="mb-3">
-    <%= f.label :assigned_to_id, "Assign to Doctor" %>
+   <%= f.label :assigned_to_id, "Assign to Doctor" %>
    
    <%= f.collection_select :assigned_to_id,
       User.where.not(id: current_user.id).eligible_for_consults,
@@ -24,10 +27,14 @@
 
 
 
+
+
+
   </div>
 
 
 
   <%= f.submit "Create Consult", class: "btn btn-primary" %>
 <% end %>
+
 -->

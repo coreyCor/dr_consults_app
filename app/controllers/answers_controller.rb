@@ -7,10 +7,10 @@ class AnswersController < ApplicationController
     @answer.user = current_user
 
     if @answer.save
-      @consult.update(consult_status: Consult::STATUS_ANSWERED)
+      @consult.update!(consult_status: Consult::STATUS_ANSWERED)
       redirect_to @consult, notice: "Answer submitted successfully."
     else
-      render "consults/show", alert: "Failed to submit answer."
+      render "consults/show", status: :unprocessable_entity
     end
   end
 
