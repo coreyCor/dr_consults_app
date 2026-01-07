@@ -7,5 +7,5 @@
 
 
 * Ruby version 3.4.5
-* System dependencies
-* Database PG
+* Rails version Rails 8.0.2.1
+* Database psql (PostgreSQL) 18.0 (Postgres.app)

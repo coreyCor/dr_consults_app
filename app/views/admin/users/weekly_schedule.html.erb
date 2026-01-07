@@ -15,6 +15,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
+        <td><%= user.time_zone %></td>
         <% 0.upto(6) do |dow| %>
           <% availability = user.availabilities.find { |a| a.day_of_week == dow } %>
           <td>

@@ -7,18 +7,18 @@
 
 <div class="row mt-4">
   <% @users.each do |user| %>
-    <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-1">
       <div class="card h-100 shadow-sm">
         <div class="card-body text-center">
           <% if @eligible_users.include?(user) %>
-            <h4 class="pageheader">
+            <h5 class="pageheader">
               <%= link_to user.name,
                   new_consult_path(assigned_to_id: user.id),
                   class: "text-primary fw-bold" %>
                   &nbsp
                
 
-            </h4>
+            </h5>
             <p class="text-success">Available For Assists</p>
           <% else %>
             <h4 class="text-muted pageheader"><%= user.name %>
@@ -30,37 +30,80 @@
           <% end %>
 
           <% if user.availabilities.any? %>
-          <!--  <table class="table table-sm mt-3">
-              <thead>
-                <tr>
-                  <th>Day</th>
-                  <th>Start</th>
-                  <th>End</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% user.availabilities.each do |availability| %>
-                  <tr>
-                    <td><%= Date::DAYNAMES[availability.day_of_week] %></td>
-                    <td>
-                      <%= availability.start_time&.in_time_zone(user.time_zone)&.strftime("%I:%M %p") || "–" %>
-                    </td>
-                    <td>
-                      <%= availability.end_time&.in_time_zone(user.time_zone)&.strftime("%I:%M %p") || "–" %>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-            -->
+  
           <% else %>
             <p class="text-muted">No availability set</p>
           <% end %>
 
           <%# <p class="text-muted"><strong>Time Zone:</strong> <%= user.time_zone </p>%>
-          <p class="text-muted"><strong>Local Time:</strong> <%= user.local_time.strftime("%I:%M %p ") %><%= user.time_zone %></p>
+          <p class="text-muted"><strong>Current local time:</strong> <%= user.local_time.strftime("%I:%M %p ") %><%= user.time_zone %></p>
         </div>
       </div>
     </div>
   <% end %>
 </div>
+
+
+
+
+
+
+<hr class="my-4">
+
+<h2 class="pageheader"><i>Request an assist</i></h2>
+
+<br>
+<hr>
+<br>
+
+<table class="table table-bordered table-hover align-middle">
+  <thead class="table-light">
+    <tr>
+      <th>Pathologist</th>
+      <th>Current Local Time</th>
+      <th>Available for Assist</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <% next if user == current_user %>
+
+      <% eligible = @eligible_users.include?(user) %>
+
+      <tr>
+        <td>
+          <% if eligible %>
+            <%= link_to user.name,
+                        new_consult_path(assigned_to_id: user.id),
+                        class: "fw-semibold" %>
+          <% else %>
+            <span class="text-muted"><%= user.name %></span>
+            <span class="material-symbols-outlined">pets</span>
+          <% end %>
+        </td>
+
+        <td>
+          <%= user.local_time.strftime("%I:%M %p") %>
+          <%= user.time_zone %>
+        </td>
+
+        <td>
+          <% if eligible %>
+            <span class="badge bg-success">Available</span>
+          <% else %>
+            <span class="badge bg-secondary">Unavailable</span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
