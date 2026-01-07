@@ -5,3 +5,18 @@
 }
 
 
+/* this is so bunk, need to put it somewhere better*/
+
+
+#back_button {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 20px;
+  
+}
+
+
+#conss {
+  position: relative;
+
+}
