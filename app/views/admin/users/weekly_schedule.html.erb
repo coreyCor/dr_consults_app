@@ -1,4 +1,4 @@
-<h1>schedule</h1>
+<h1>Schedule</h1>
 
 <hr>
 <br>
@@ -18,9 +18,9 @@
         <% 0.upto(6) do |dow| %>
           <% availability = user.availabilities.find { |a| a.day_of_week == dow } %>
           <td>
-            <% if availability && availability.available_start_time && availability.available_end_time %>
-              <%= availability.available_start_time.strftime("%H:%M") %> - 
-              <%= availability.available_end_time.strftime("%H:%M") %>
+            <% if availability && availability.start_time && availability.end_time %>
+              <%= availability.start_time.strftime("%H:%M") %> - 
+              <%= availability.end_time.strftime("%H:%M") %>
             <% else %>
               N/A
             <% end %>
