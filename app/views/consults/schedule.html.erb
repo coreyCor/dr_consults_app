@@ -24,7 +24,7 @@
             <span class="material-symbols-outlined">pets</span>
             
             </h4>
-            <p class="text-secondary">Paused</p>
+            <p class="text-secondary">Paused </p>
           <% end %>
 
           <% if user.availabilities.any? %>
@@ -78,6 +78,7 @@
           <% else %>
             <span class="text-muted"><%= user.name %></span>
             <span class="material-symbols-outlined">pets</span>
+            
           <% end %>
         </td>
 
@@ -88,9 +89,10 @@
 
         <td>
           <% if eligible %>
-            <span class="badge bg-success">Available</span>
+            <span class="badge bg-success">Yes</span>
           <% else %>
-            <span class="badge bg-secondary">Paused</span>
+            <span class="badge bg-secondary">Paused </span>&nbsp
+           <%# <span class="material-symbols-outlined">pets</span> %>
           <% end %>
         </td>
       </tr>
