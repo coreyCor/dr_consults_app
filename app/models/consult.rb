@@ -4,6 +4,11 @@ class Consult < ApplicationRecord
   belongs_to :assigned_to, class_name: "User", optional: true
   has_one :answer, dependent: :destroy
 
+
+  # new for FBX_NEOS
+  has_many :consult_assignments, dependent: :destroy
+  has_many :assigned_users, through: :consult_assignments, source: :user
+
   # Status const
   STATUS_PENDING = "pending"
   STATUS_ANSWERED = "answered"
@@ -43,7 +48,25 @@ class Consult < ApplicationRecord
     else "Unknown"      # all unknows
     end
   end
+  STANDARD = "standard"
+  FBX_NEO  = "fbx_neo"
 
+def fbx_neo?
+  consult_type == "fbx_neo"
+end
+
+def standard?
+  consult_type == STANDARD
+end
+
+def assign_users!(users)
+  users.each do |user|
+    consult_assignments.create!(
+      user: user,
+      assigned_at: Time.current
+    )
+  end
+end
   # Boolean helpers
   def pending?; consult_status == STATUS_PENDING; end
   def answered?; consult_status == STATUS_ANSWERED; end

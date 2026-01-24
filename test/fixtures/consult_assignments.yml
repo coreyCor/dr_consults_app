@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  consult: one
+  user: one
+  assigned_at: 2026-01-21 11:03:06
+
+two:
+  consult: two
+  user: two
+  assigned_at: 2026-01-21 11:03:06

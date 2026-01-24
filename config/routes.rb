@@ -20,4 +20,9 @@ Rails.application.routes.draw do
     end
     resources :answers, only: [ :create ]
   end
+  resources :fbx_neo_consults, path: "fbx_neo", only: [ :new, :create, :index, :show ], path: "fbx_neo" do
+  collection do
+    get :mine
+  end
+end
 end

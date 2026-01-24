@@ -1,0 +1,30 @@
+<h2>Request FBX NEO</h2>
+
+<%= form_with model: @consult, url: fbx_neo_consults_path do |f| %>
+
+  <div class="mb-3">
+    <%= f.label :Accession %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :Question %>
+    <%= f.text_area :body, class: "form-control" %>
+  </div>
+
+  <h4>Select 2–5 recipients</h4>
+
+  <% @eligible_users.each do |user| %>
+    <div class="form-check">
+      <%= check_box_tag "assigned_user_ids[]", user.id, false,
+            class: "form-check-input",
+            id: "user_#{user.id}" %>
+      <%= label_tag "user_#{user.id}", user.name, class: "form-check-label" %>
+    </div>
+  <% end %>
+
+  <%= f.submit "Create FBX NEO", class: "btn btn-primary mt-3" %>
+<% end %>
+<div id: "conss">
+<%= link_to "← Back", :back, class: "btn btn-primary", id: "back_button" %>
+</div>

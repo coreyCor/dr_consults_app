@@ -15,67 +15,81 @@
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
-      <div class="container-fluid">
+  <div class="container-fluid">
 
-        
-        <%= link_to "Antech Path Assist", root_path, class: "navbar-brand" %>
-        &nbsp
-        
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <%= link_to "Antech Path Assist", root_path, class: "navbar-brand" %>
+    &nbsp;
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto">
-            <% if user_signed_in? %>
-              <li class="nav-item">
-                <%= link_to "Assists I requested", mine_consults_path, class: "nav-link" %>
-              </li>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-              <li class="nav-item">
-                <%= link_to "Assists asked of me", assigned_consults_path, class: "nav-link" %>
-              </li>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
 
-              <li class="nav-item">
-                <%= link_to "Request a New Assist", new_consult_path, class: "nav-link" %> 
-              </li> 
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Assists I requested", mine_consults_path, class: "nav-link" %>
+          </li>
 
-              <li class="nav-item">
-                <%= link_to "Consult Dr's", schedule_consults_path, class: "nav-link" %>
-              </li>
+          <li class="nav-item">
+            <%= link_to "Assists asked of me", assigned_consults_path, class: "nav-link" %>
+          </li>
 
-            <% end %>
-          </ul>
+          <li class="nav-item">
+            <%= link_to "Request a New Assist", new_consult_path, class: "nav-link" %>
+          </li>
 
-          <ul class="navbar-nav ms-auto">
-            <% if user_signed_in? %>
-              <li class="nav-item">
-                <span class="navbar-text me-2">
-                  Logged in as: <strong><%= current_user.name %></strong>
-                </span>
-              </li>
+          <li class="nav-item">
+            <%= link_to "Consult Dr's", schedule_consults_path, class: "nav-link" %>
+          </li>
 
-              <% if current_user.admin? %>
-                <li class="nav-item">
-                  <%= link_to "Admin", admin_users_path, class: "nav-link" %>
-                </li>
-              <% end %>
+          <!-- FBX NEO links -->
+          <li class="nav-item">
+            <%= link_to "New FBX NEO", new_fbx_neo_consult_path, class: "nav-link" %>
+          </li>
 
-              <li class="nav-item">
-                <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link", form_class: "d-inline" %>
-              </li>
-            <% else %>
-              <li class="nav-item">
-                <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </nav>
+          <% if current_user&.can_accept_fbx_neo? %>
+            <li class="nav-item">
+              <%= link_to "My FBX NEOs", mine_fbx_neo_consults_path, class: "nav-link" %>
+            </li>
+          <% end %>
+
+        <% end %>
+      </ul>
+
+      <ul class="navbar-nav ms-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <span class="navbar-text me-2">
+              Logged in as: <strong><%= current_user&.name %></strong>
+            </span>
+          </li>
+
+          <% if current_user&.admin? %>
+            <li class="nav-item">
+              <%= link_to "Admin", admin_users_path, class: "nav-link" %>
+            </li>
+          <% end %>
+
+          <li class="nav-item">
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link", form_class: "d-inline" %>
+          </li>
+
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
   
     <div class="container">
       <% if notice %>

@@ -1,0 +1,24 @@
+<h2>My FBX NEOs</h2>
+
+<% if @consults.any? %>
+  <% @consults.each do |consult| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5>
+          <%= link_to consult.title, fbx_neo_consult_path(consult) %>
+        </h5>
+
+        <p class="text-muted">
+          Requested by: <%= consult.asked_by.name %>
+        </p>
+
+        <p>
+          Assigned team size:
+          <strong><%= consult.assigned_users.count %></strong>
+        </p>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p>You have no FBX NEO assignments.</p>
+<% end %>

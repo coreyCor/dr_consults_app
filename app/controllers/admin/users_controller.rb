@@ -49,7 +49,7 @@ class Admin::UsersController < ApplicationController
 
   def user_params
   params.require(:user).permit(
-    :name, :email, :user_role, :daily_consult_limit, :cooldown_minutes, :time_zone,
+    :name, :email, :user_role, :can_accept_fbx_neo, :daily_consult_limit, :cooldown_minutes, :time_zone,
     availabilities_attributes: [ :id, :day_of_week, :start_time, :end_time, :start_minute, :end_minute, :_destroy ]
   )
   end
