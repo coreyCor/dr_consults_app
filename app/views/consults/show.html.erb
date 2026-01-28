@@ -1,6 +1,6 @@
 <h2 class="pageheader"><u>Accession: <%= @consult.title %></u></h2>
 <p><strong>Asked By:</strong> <%= @consult.asked_by.name %></p>
-<p><strong>Assigned To:</strong> <%= @consult.assigned_to&.name || "Unassigned" %></p>
+<p><strong>Assigned To: </strong> <%= @consult.assigned_to&.name || "Unassigned" %></p>
 <!--<p><strong>Status:</strong> <%= @consult.status_text %></p>-->
 <p><strong>Question:</strong> <br> <h5><%= @consult.body %></h5></p>
 

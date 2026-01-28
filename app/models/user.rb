@@ -69,9 +69,13 @@ class User < ApplicationRecord
     users.select { |user| user.available_now? && user.eligible_by_limits_and_cooldown? }
   end
 
-  def self.eligible_for_fbx_neo
-    where(can_accept_fbx_neo: true).select(&:works_within_next_48_hours?)
-  end
+  def self.eligible_for_fbx_neo(exclude_user: nil)
+  users = where(can_accept_fbx_neo: true)
+  users = users.where.not(id: exclude_user.id) if exclude_user
+
+  users.select(&:works_within_next_48_hours?)
+end
+
 
   # --------------------------------------------------
   # Availability
@@ -83,7 +87,10 @@ class User < ApplicationRecord
 
       availability = availabilities.find { |a| a.day_of_week == today }
       return false unless availability
-      return false unless availability.start_minute && availability.end_minute
+      # return false unless availability.start_minute && availability.end_minute
+      return false if availability.off?
+       # incom times
+       return false unless availability.start_minute && availability.end_minute
 
       now_minutes = now.hour * 60 + now.min
       now_minutes.between?(availability.start_minute, availability.end_minute)
@@ -97,6 +104,7 @@ class User < ApplicationRecord
 
       availabilities.any? do |a|
         # Skip any incomplete availability
+        next false if a.off?
         next false unless a.start_minute && a.end_minute
 
         # Calculate the next occurrence of this day

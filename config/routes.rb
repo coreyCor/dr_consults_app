@@ -8,7 +8,10 @@ Rails.application.routes.draw do
       end
     end
   end
-
+    # remove below 3 after stim test
+    get "/test_integration", to: "test#show"
+    patch "/test_integration/update", to: "test#update"
+    delete "/test_integration/delete", to: "test#destroy"
   # root "consults#mine"
   root "consults#schedule"
   resources :consults do

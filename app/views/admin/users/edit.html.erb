@@ -71,6 +71,7 @@
         <th>Day</th>
         <th>Start Time</th>
         <th>End Time</th>
+        <th>Off</th>
       </tr>
     </thead>
     <tbody>
@@ -81,6 +82,9 @@
             <td><%= day_name %></td>
             <td><%= af.time_field :start_time, class: "form-control", step: 60 %></td>
             <td><%= af.time_field :end_time, class: "form-control", step: 60 %></td>
+              <td class="text-center">
+                <%= af.check_box :off %>
+              </td>
             <%= af.hidden_field :day_of_week, value: i %>
           </tr>
         <% end %>

@@ -3,7 +3,7 @@ class FbxNeoConsultsController < ApplicationController
 
   def new
     @consult = Consult.new(consult_type: "fbx_neo")
-    @eligible_users = User.eligible_for_fbx_neo
+    @eligible_users = User.eligible_for_fbx_neo(exclude_user: current_user)
   end
 
   def create
@@ -16,7 +16,7 @@ class FbxNeoConsultsController < ApplicationController
 
     if selected_users.size < 2 || selected_users.size > 5
       flash.now[:alert] = "Please select between 2 and 5 users."
-      @eligible_users = User.where(can_accept_fbx_neo: true)
+      @eligible_users = User.where(can_accept_fbx_neo: true).(exclude_user: current_user)
       render :new, status: :unprocessable_entity
       return
     end
@@ -25,7 +25,7 @@ class FbxNeoConsultsController < ApplicationController
       @consult.assign_users!(selected_users)
       redirect_to mine_fbx_neo_consults_path, notice: "FBX NEO created successfully."
     else
-      @eligible_users = User.eligible_for_fbx_neo
+      @eligible_users = User.eligible_for_fbx_neo(exclude_user: current_user)
 
       render :new, status: :unprocessable_entity
     end

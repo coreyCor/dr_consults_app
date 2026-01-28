@@ -1,0 +1,13 @@
+<h1>Turbo + Stimulus + Buttons Test</h1>
+
+<%= turbo_frame_tag "test_frame" do %>
+  <p id="test_text">Initial content</p>
+
+  <%= button_to "Update via Turbo", "/test_integration/update", method: :patch, data: { turbo_frame: "test_frame" }, class: "btn btn-success" %>
+  <%= button_to "Delete via Turbo", "/test_integration/delete", method: :delete, data: { turbo_frame: "test_frame" }, class: "btn btn-danger" %>
+<% end %>
+
+<div data-controller="hello">
+  <p data-hello-target="message">Hello from Stimulus!</p>
+  <button data-action="click->hello#sayHi" class="btn btn-primary">Say Hi</button>
+</div>
