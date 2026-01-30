@@ -23,9 +23,17 @@ Rails.application.routes.draw do
     end
     resources :answers, only: [ :create ]
   end
-  resources :fbx_neo_consults, path: "fbx_neo", only: [ :new, :create, :index, :show ], path: "fbx_neo" do
+  resources :fbx_neo_consults, only: [ :new, :create, :index, :show ], path: "fbx_neo" do
   collection do
     get :mine
   end
 end
+
+
+resources :users, only: [] do
+  member do
+    get :availability
+    get :availability_row  # new route for table row
+  end
+ end
 end

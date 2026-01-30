@@ -1,0 +1,5 @@
+<%= turbo_frame_tag dom_id(@user, :availability) do %>
+  <%= render "users/availability_card",
+             user: @user,
+             eligible_users: @eligible_users %>
+<% end %>

@@ -7,6 +7,7 @@ class Admin::UsersController < ApplicationController
   def index
     @users = User.all
   end
+  # for turbo auto loads cards and rows schedule
 
   def edit
   end

@@ -1,0 +1,33 @@
+
+<turbo-frame id="<%= dom_id(user, :availability) %>">
+  <div class="row mt-4">
+    <div class="col-sm-4 mb-1">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+
+          <% if eligible_users.include?(user) %>
+            <h5 class="pageheader">
+              <%= link_to user.name,
+                  new_consult_path(assigned_to_id: user.id),
+                  class: "text-primary fw-bold",
+                  data: { turbo_frame: "_top" } %>
+            </h5>
+            <p class="text-success">Available For Assists</p>
+          <% else %>
+            <h4 class="text-muted pageheader">
+              <%= user.name %>
+              <span class="material-symbols-outlined">pets</span>
+            </h4>
+            <p class="text-secondary">Paused</p>
+          <% end %>
+
+          <p class="text-muted">
+            <strong>Current local time:</strong>
+            <%= user.local_time.strftime("%I:%M %p") %> <%= user.time_zone %>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</turbo-frame>
