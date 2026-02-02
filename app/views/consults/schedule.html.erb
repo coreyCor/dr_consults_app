@@ -3,62 +3,27 @@
 <hr>
 <br>
 
-  
+<div class="availability-table">
 
-<% @users.each do |user| %>
+  <div class="table-header">
+    <div>Pathologist</div>
+    <div>Current Local Time</div>
+    <div>Available for Assist</div>
+  </div>
 
-<%= turbo_frame_tag dom_id(user, :availability),
-      src: availability_user_path(user),
-      loading: "lazy",
-      data: {
-        controller: "availability-refresh",
-        availability_refresh_interval_value: 30000
-      } do %> 
-
-    
-  <%= render "users/availability_card",
-             user: user,
-             eligible_users: @eligible_users %>
-
-  <% end %>
-  <% end %>
-
-Tables start?<br>
-
-<table class="table table-bordered table-hover align-middle">
-  <thead class="table-light">
-   
-      <th>Pathologist</th>
-      <th>Current Local Time</th>
-      <th>Available for Assist</th>
-   
-    </thead>
- 
-    <tbody>
-      <tr>
-      <% @users.reject { |u| u == current_user }.each do |user| %>
-        <%= turbo_frame_tag "row_frame_#{user.id}",
-          tag: :tr,
+  <% @users.reject { |u| u == current_user }.each do |user| %>
+    <%= turbo_frame_tag "row_frame_#{user.id}",
           src: availability_row_user_path(user),
           data: {
             controller: "availability-refresh",
             availability_refresh_interval_value: 30000
-          } do %>
-      
-        <% end %>
-      <% end %>
-       </tr>
-    </tbody>
- 
+          } %>
+  <% end %>
+
+</div>
 
 
 
-</table>
-
-
-
-
-<hr>
 <br>
 
 <%# remove this%>
@@ -71,5 +36,6 @@ Tables start?<br>
 <br>
 <br>
 <br>
-<br>
 <hr>
+
+

@@ -1,6 +1,6 @@
 # README
 
-# **Antech Path Assist**
+# **Path Assist**
 
 
 ### This is an app that the pathologist would use to sort of place guardrails on how many questions (path assists) they can recieve through the day. Lots of baked in logic 
