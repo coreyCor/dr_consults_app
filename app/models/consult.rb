@@ -3,6 +3,7 @@ class Consult < ApplicationRecord
   belongs_to :asked_by, class_name: "User"
   belongs_to :assigned_to, class_name: "User", optional: true
   has_one :answer, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
 
   # new for FBX_NEOS

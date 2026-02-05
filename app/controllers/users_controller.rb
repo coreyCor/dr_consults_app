@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   @user = User.find(params[:id])
   @eligible_users = User.eligible_for_consults(exclude_user: current_user)
 
-  response.headers["Cache-Control"] = "no-store"
+   response.headers["Cache-Control"] = "no-store"
 
   render partial: "consults/user_row",
          locals: { user: @user, eligible_users: @eligible_users }

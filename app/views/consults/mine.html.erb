@@ -6,7 +6,7 @@
 
 <% if @consults.any? %>
   <% @consults.each do |consult| %>
-    <div class="consult mb-3 p-2 border rounded shadow-sm">
+    <div class="consult mb-3 p-2 border shadow-sm">
       <h4><%= link_to consult.title.capitalize, consult_path(consult), class: "text-primary" %></h4>
       <p><%= truncate(consult.body, length: 100) %></p>
       <p>Assigned to: <%= consult.assigned_to&.name || "Unassigned" %></p>

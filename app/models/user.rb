@@ -23,6 +23,7 @@ class User < ApplicationRecord
            foreign_key: "asked_by_id",
            dependent: :nullify
 
+
   has_many :assigned_consults,
            class_name: "Consult",
            foreign_key: "assigned_to_id",
@@ -46,7 +47,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :user_role, inclusion: { in: [ ROLE_ADMIN, ROLE_USER ] }
-
+  scope :receiving_consults, -> { where(can_receive_consults: true) }
   # --------------------------------------------------
   # Role helpers
   # --------------------------------------------------
@@ -59,22 +60,27 @@ class User < ApplicationRecord
   # --------------------------------------------------
   def eligible_for_fbx_neo?; can_accept_fbx_neo?; end
 
-  # --------------------------------------------------
-  # Class methods
-  # --------------------------------------------------
-  def self.eligible_for_consults(exclude_user: nil)
-    users = all
-    users = users.where.not(id: exclude_user.id) if exclude_user
+# --------------------------------------------------
+# Class methods
+# --------------------------------------------------
 
-    users.select { |user| user.available_now? && user.eligible_by_limits_and_cooldown? }
+def self.eligible_for_consults(exclude_user: nil)
+  users = all
+  users = users.where.not(id: exclude_user.id) if exclude_user
+
+  # Only select users who can receive consults AND are available + within limits
+  users.select do |user|
+    user.can_receive_consults? && user.available_now? && user.eligible_by_limits_and_cooldown?
   end
+end
+
 
   def self.eligible_for_fbx_neo(exclude_user: nil)
   users = where(can_accept_fbx_neo: true)
   users = users.where.not(id: exclude_user.id) if exclude_user
 
   users.select(&:works_within_next_48_hours?)
-end
+  end
 
 
   # --------------------------------------------------

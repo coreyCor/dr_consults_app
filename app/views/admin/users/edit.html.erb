@@ -32,6 +32,17 @@
   <%= f.label :can_accept_fbx_neo, "Eligible for FBX NEO consults", class: "form-check-label" %>
 </div>
 
+<div class="mb-3 form-check">
+  <%= f.check_box :can_receive_consults, class: "form-check-input" %>
+  <%= f.label :can_receive_consults,
+        "Eligible to receive consults",
+        class: "form-check-label" %>
+
+  <div class="form-text">
+    Allow this user to be assigned new consults
+  </div>
+</div>
+
   <div class="mb-3">
     <%= f.label :daily_consult_limit %>
     <%= f.number_field :daily_consult_limit, class: "form-control", min: 0 %>
@@ -84,9 +95,14 @@
             <td><%= af.time_field :end_time, class: "form-control", step: 60 %></td>
               <td class="text-center">
                 <%= af.check_box :off %>
+
               </td>
+              
             <%= af.hidden_field :day_of_week, value: i %>
           </tr>
+          <td>
+            
+          </td>
         <% end %>
       <% end %>
     </tbody>

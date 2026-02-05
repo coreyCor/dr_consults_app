@@ -16,7 +16,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
   <div class="container-fluid">
-
+ 
     <%= link_to "Antech Path Assist", root_path, class: "navbar-brand" %>
     &nbsp;
 
@@ -32,28 +32,27 @@
             <%= link_to "Assists I requested", mine_consults_path, class: "nav-link" %>
           </li>
 
+      <%#new nav link for notifications%>
+
           <li class="nav-item">
             <%= link_to "Assists asked of me", assigned_consults_path, class: "nav-link" %>
           </li>
 
-          <li class="nav-item">
-            <%= link_to "Request a New Assist", new_consult_path, class: "nav-link" %>
-          </li>
 
           <li class="nav-item">
             <%= link_to "Consult Dr's", schedule_consults_path, class: "nav-link" %>
           </li>
 
           <!-- FBX NEO links -->
-          <li class="nav-item">
-            <%= link_to "New FBX NEO", new_fbx_neo_consult_path, class: "nav-link" %>
-          </li>
+<% if current_user&.can_accept_fbx_neo? %>
+  <li class="nav-item">
+    <%= link_to "New FBX NEO", new_fbx_neo_consult_path, class: "nav-link" %>
+  </li>
 
-          <% if current_user&.can_accept_fbx_neo? %>
-            <li class="nav-item">
-              <%= link_to "My FBX NEOs", mine_fbx_neo_consults_path, class: "nav-link" %>
-            </li>
-          <% end %>
+  <li class="nav-item">
+    <%= link_to "My FBX NEOs", mine_fbx_neo_consults_path, class: "nav-link" %>
+  </li>
+<% end %>
 
         <% end %>
       </ul>
@@ -98,8 +97,8 @@
       <% if alert %>
         <div class="alert alert-danger"><%= alert %></div>
       <% end %>
-                  <!-- Hero image -->
-        <div class="hero-image mb-4" style="width: 60%; height: 200px; overflow: hidden;">
+                  <!-- Antechs logo here -->
+        <div class="hero-image mb-4" style="width: 100%; height: 200px; overflow: hidden;">
           <%= image_tag "hero.jpg", style: "width: 50%; height: 100%; object-fit: cover;" %>
         </div>
       <%= yield %>

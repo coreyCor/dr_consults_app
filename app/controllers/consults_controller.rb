@@ -92,9 +92,11 @@ class ConsultsController < ApplicationController
     @consults = current_user.assigned_consults.order(created_at: :desc)
   end
 
-  def schedule
-  @users = User.where.not(id: current_user.id).includes(:availabilities)
-  @eligible_users = User.eligible_for_consults(exclude_user: current_user)
+   def schedule
+    # Show all users who can receive consults, regardless of current minute
+    @eligible_users = User.where.not(id: current_user.id)
+                          .receiving_consults
+                          .includes(:availabilities)
   end
 
   private

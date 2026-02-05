@@ -11,7 +11,7 @@
     <div>Available for Assist</div>
   </div>
 
-  <% @users.reject { |u| u == current_user }.each do |user| %>
+  <% @eligible_users.each do |user| %>
     <%= turbo_frame_tag "row_frame_#{user.id}",
           src: availability_row_user_path(user),
           data: {
@@ -19,6 +19,7 @@
             availability_refresh_interval_value: 30000
           } %>
   <% end %>
+
 
 </div>
 
@@ -37,5 +38,6 @@
 <br>
 <br>
 <hr>
+
 
 

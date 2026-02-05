@@ -7,7 +7,8 @@
 
 <% if @consults.any? %>
   <% @consults.each do |consult| %>
-    <div class="consult mb-3 p-2 border rounded shadow-sm">
+  
+    <div class="consult mb-3 p-2 border shadow-sm">
       <h3><%= link_to consult.title, consult_path(consult) %></h3>
       <p>Asked by: <%= consult.asked_by.name %></p>
       <p>
@@ -17,8 +18,9 @@
               .strftime("%b %d, %Y") %>
       </p>
       <p>Question: <%= truncate(consult.body, length: 100) %></p>
-    </div>
+    </div>  
   <% end %>
+  
 <% else %>
   <p>No consults currently assigned to you.</p>
 <% end %>
