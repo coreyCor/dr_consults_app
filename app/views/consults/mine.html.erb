@@ -3,22 +3,22 @@
 
 <hr>
 <br>
-
 <% if @consults.any? %>
   <% @consults.each do |consult| %>
     <div class="consult mb-3 p-2 border shadow-sm">
-      <h4><%= link_to consult.title.capitalize, consult_path(consult), class: "text-primary" %></h4>
-      <p><%= truncate(consult.body, length: 100) %></p>
-      <p>Assigned to: <%= consult.assigned_to&.name || "Unassigned" %></p>
-      <p class="pageheader">
-        Asked on: <%= consult.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%b %d, %Y ") %>
-     
+      <h5>Accession: <%= link_to consult.title.capitalize, consult_path(consult), class: "consult-card text-primary" %></h5>
+      
+      <small>
+       Assigned to: <%= consult.assigned_to&.name || "Unassigned" %> •
+      
+        Requested on: <%= consult.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%b %d, %Y ") %>
+      </small>
      <!-- <p>Status: <%= consult.status_text%></p> -->
 
       <% if consult.asked_by_id == current_user.id %>
       <br>
       <br>
-        <%= link_to "Edit", edit_consult_path(consult), class: "btn btn-sm btn-primary" %>
+        
 
        <!--  two comments <%= button_to "Delete", consult_path(consult),
                       method: :delete,

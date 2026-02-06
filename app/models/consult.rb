@@ -4,7 +4,7 @@ class Consult < ApplicationRecord
   belongs_to :assigned_to, class_name: "User", optional: true
   has_one :answer, dependent: :destroy
   has_many :notifications, dependent: :destroy
-
+  after_commit :broadcast_assigned_consult, on: [ :create, :update ]
 
   # new for FBX_NEOS
   has_many :consult_assignments, dependent: :destroy
@@ -72,3 +72,16 @@ end
   def pending?; consult_status == STATUS_PENDING; end
   def answered?; consult_status == STATUS_ANSWERED; end
 end
+
+  private
+
+  def broadcast_assigned_consult
+    return unless assigned_to_id_previously_changed? || saved_change_to_assigned_to_id?
+
+    broadcast_prepend_to(
+      "assigned_consults_user_#{assigned_to_id}",
+      target: "assigned_consults",
+      partial: "consults/consult",
+      locals: { consult: self }
+    )
+  end

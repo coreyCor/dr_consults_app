@@ -1,7 +1,7 @@
 .hero-image  {
-  height: 70px;
+  height: 60px;
   object-fit: cover; /* scales and crops to fit  */
-  width: 60%;
+  width: 50%;
 }
 
 
@@ -64,4 +64,13 @@
 
 .table-row:hover {
   background: #f9f9f9;
+}
+
+
+
+#navvy{
+    position: sticky; /* Element remains in normal flow, then sticks when the threshold is met */
+    top: 0;           /* The point where the element becomes sticky (0px from the top) */
+    z-index: 999;     /* Ensures the navbar is above other elements once sticky */
+    /* Add other styling like background-color, padding, etc. */
 }

@@ -97,7 +97,16 @@ class ConsultsController < ApplicationController
     @eligible_users = User.where.not(id: current_user.id)
                           .receiving_consults
                           .includes(:availabilities)
-  end
+   end
+
+
+     def taskscreen
+       # Show all users who can receive consults, regardless of current minute
+       @eligible_users = User.where.not(id: current_user.id)
+                          .receiving_consults
+                          .includes(:availabilities)
+       @consults = current_user.assigned_consults.order(created_at: :desc)
+     end
 
   private
 

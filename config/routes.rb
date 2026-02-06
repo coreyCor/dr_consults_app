@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       get :mine      # Consults asked by current user
       get :assigned
       get :schedule
+      get :taskscreen
       # get :weekly_schedule # Consults assigned to current user
     end
     resources :answers, only: [ :create ]

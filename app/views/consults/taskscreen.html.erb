@@ -1,0 +1,48 @@
+
+
+<hr>
+<h2 class = "pageheader"><i>Request an assist</i></h2>
+<br>
+
+
+
+<div class="availability-table">
+
+  <div class="table-header">
+    <div>Pathologist</div>
+    <div>Current Local Time</div>
+    <div>Available for Assist</div>
+  </div>
+
+  <% @eligible_users.each do |user| %>
+    <%= turbo_frame_tag "row_frame_#{user.id}",
+          src: availability_row_user_path(user),
+          data: {
+            controller: "availability-refresh",
+            availability_refresh_interval_value: 30000
+          } %>
+  <% end %>
+
+
+</div>
+
+<br>
+<br>
+
+
+<hr>
+<h2 class = "pageheader"><i>Assists asked of me</i></h2>
+<br>
+
+
+
+<%= turbo_stream_from "assigned_consults_user_#{current_user.id}" %>
+
+<div id="assigned_consults">
+  <%= render partial: "consult", collection: @consults, as: :consult %>
+</div>
+
+
+<div id: "conss">
+<%= link_to "← Back", :back, class: "btn btn-primary" %>
+</div>

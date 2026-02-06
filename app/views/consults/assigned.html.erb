@@ -1,29 +1,10 @@
-<h2 class = "pageheader"><i>Assists asked of me</i></h3>
-
-
+<h2 class="pageheader"><i>Assist asked of me</i></h2>
 <hr>
 <br>
+<%= turbo_stream_from "assigned_consults_user_#{current_user.id}" %>
 
-
-<% if @consults.any? %>
-  <% @consults.each do |consult| %>
-  
-    <div class="consult mb-3 p-2 border shadow-sm">
-      <h3><%= link_to consult.title, consult_path(consult) %></h3>
-      <p>Asked by: <%= consult.asked_by.name %></p>
-      <p>
-        Assigned:
-        <%= consult.assigned_at
-              .in_time_zone(current_user.time_zone)
-              .strftime("%b %d, %Y") %>
-      </p>
-      <p>Question: <%= truncate(consult.body, length: 100) %></p>
-    </div>  
-  <% end %>
-  
-<% else %>
-  <p>No consults currently assigned to you.</p>
-<% end %>
-<div id: "conss">
-<%= link_to "← Back", :back, class: "btn btn-primary" %>
+<div id="assigned_consults">
+  <%= render partial: "consult", collection: @consults, as: :consult %>
 </div>
+<br>
+<hr>
