@@ -1,7 +1,7 @@
 
 
 <hr>
-<h2 class = "pageheader"><i>Request an assist</i></h2>
+<h2 class = "pageheader"><i><u>Request an assist</u></i></h2>
 <br>
 
 
@@ -11,7 +11,7 @@
   <div class="table-header">
     <div>Pathologist</div>
     <div>Current Local Time</div>
-    <div>Available for Assist</div>
+    <div>Available for Assist </div>
   </div>
 
   <% @eligible_users.each do |user| %>
@@ -31,7 +31,7 @@
 
 
 <hr>
-<h2 class = "pageheader"><i>Assists asked of me</i></h2>
+<h2 class = "pageheader"><i><u>Assists asked of me</u></i></h2>
 <br>
 
 
@@ -39,7 +39,11 @@
 <%= turbo_stream_from "assigned_consults_user_#{current_user.id}" %>
 
 <div id="assigned_consults">
-  <%= render partial: "consult", collection: @consults, as: :consult %>
+  <%= render partial: "consults/consult",
+           collection: @consults,
+           as: :consult,
+           locals: { viewer: current_user } %>
+
 </div>
 
 

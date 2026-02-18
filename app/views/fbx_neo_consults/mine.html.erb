@@ -2,7 +2,7 @@
 
 <% if @consults.any? %>
   <% @consults.each do |consult| %>
-    <div class="card mb-3">
+    <div class="consult-card mb-3 p-2 shadow-sm">
       <div class="card-body">
         <h5>
           <%= link_to consult.title, fbx_neo_consult_path(consult) %>

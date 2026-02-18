@@ -60,6 +60,22 @@ def standard?
   consult_type == STANDARD
 end
 
+def unread_for?(user)
+  assigned_to_id == user&.id && read_at.nil?
+end
+
+  def mark_as_read!
+    update_column(:read_at, Time.current) if read_at.nil?
+  end
+
+
+
+
+
+
+
+
+
 def assign_users!(users)
   users.each do |user|
     consult_assignments.create!(
@@ -75,13 +91,19 @@ end
 
   private
 
-  def broadcast_assigned_consult
-    return unless assigned_to_id_previously_changed? || saved_change_to_assigned_to_id?
+ def broadcast_assigned_consult
+  return unless saved_change_to_assigned_to_id?
 
-    broadcast_prepend_to(
-      "assigned_consults_user_#{assigned_to_id}",
-      target: "assigned_consults",
-      partial: "consults/consult",
-      locals: { consult: self }
-    )
-  end
+  assigned_user = User.find_by(id: assigned_to_id)
+  return unless assigned_user
+
+  broadcast_prepend_to(
+    "assigned_consults_user_#{assigned_user.id}",
+    target: "assigned_consults",
+    partial: "consults/consult",
+    locals: {
+      consult: self,
+      viewer: assigned_user
+    }
+  )
+ end

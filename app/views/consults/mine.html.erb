@@ -3,34 +3,20 @@
 
 <hr>
 <br>
-<% if @consults.any? %>
-  <% @consults.each do |consult| %>
-    <div class="consult mb-3 p-2 border shadow-sm">
-      <h5>Accession: <%= link_to consult.title.capitalize, consult_path(consult), class: "consult-card text-primary" %></h5>
-      
-      <small>
-       Assigned to: <%= consult.assigned_to&.name || "Unassigned" %> •
-      
-        Requested on: <%= consult.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%b %d, %Y ") %>
-      </small>
-     <!-- <p>Status: <%= consult.status_text%></p> -->
 
-      <% if consult.asked_by_id == current_user.id %>
-      <br>
-      <br>
-        
 
-       <!--  two comments <%= button_to "Delete", consult_path(consult),
-                      method: :delete,
-                      data: { confirm: "Are you sure you want to delete this consult?" },
-                      class: "btn btn-sm btn-danger",
-                      form_class: "d-inline" %> -->
-      <% end %>
-    </div>
-  <% end %>
-<% else %>
-  <p>You haven't requested any assists yet.</p>
-<% end %>
+
+ <%= render partial: "consults/consult",
+             collection: @consults,
+             as: :consult,
+             locals: { viewer: current_user } %>
+
+
+
+
+
+
+
 <div id: "conss">
 <%= link_to "← Back", :back, class: "btn btn-primary" %>
 </div>

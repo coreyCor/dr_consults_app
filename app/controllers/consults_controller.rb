@@ -49,6 +49,9 @@ class ConsultsController < ApplicationController
   # GET /consults/:id
   def show
     @answer = @consult.answer || Answer.new
+    if @consult.assigned_to == current_user && @consult.read_at.nil?
+       @consult.update_column(:read_at, Time.current)
+    end
   end
 
   # GET /consults/:id/edit

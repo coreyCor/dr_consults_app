@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     patch "/test_integration/update", to: "test#update"
     delete "/test_integration/delete", to: "test#destroy"
   # root "consults#mine"
-  root "consults#schedule"
+  root "consults#taskscreen"
   resources :consults do
     collection do
       get :mine      # Consults asked by current user

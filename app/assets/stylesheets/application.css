@@ -74,3 +74,30 @@
     z-index: 999;     /* Ensures the navbar is above other elements once sticky */
     /* Add other styling like background-color, padding, etc. */
 }
+
+
+.pageheader {
+  font-weight: lighter;
+}
+
+
+.floater {
+  float: right;
+  padding:20px;
+}
+
+
+
+.consult-card {
+  border: 1px solid #ede8ec;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  transition: border 0.2s ease;
+  box-shadow: 19px 18px 22px 4px #000000
+}
+
+.unread-consult {
+  border: 2px solid #5e1c8d !important; /* special purple */
+  box-shadow: 19px 18px 22px 4px #000000
+}

@@ -1,13 +1,15 @@
-<div class="consult mb-3 p-2 border shadow-sm">
-<div id="<%= dom_id(consult) %>" class="consult-card">
-  
-  <h5>Accession: <%= link_to consult.title, consult_path(consult) %></h5>
-  
+<div id="<%= dom_id(consult) %>"
+     class="consult-card mb-3 p-2 border shadow-sm
+            <%= 'border-dark border-3' if consult.unread_for?(viewer) %>">
+
+  <h5>
+    Accession:
+    <%= link_to consult.title, consult_path(consult) %>
+  </h5>
+
   <small>
     Assigned by <%= consult.asked_by.name %> •
     <%= time_ago_in_words(consult.created_at) %> ago
   </small>
-  <br>
-  <br>
-</div>
+
 </div>

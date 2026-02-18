@@ -4,7 +4,10 @@
 <%= turbo_stream_from "assigned_consults_user_#{current_user.id}" %>
 
 <div id="assigned_consults">
-  <%= render partial: "consult", collection: @consults, as: :consult %>
+  <%= render partial: "consults/consult",
+             collection: @consults,
+             as: :consult,
+             locals: { viewer: current_user } %>
 </div>
 <br>
 <hr>
