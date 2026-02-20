@@ -46,12 +46,13 @@ class User < ApplicationRecord
   ROLE_USER  = "user"
 
   validates :name, presence: true
+  validates :password, presence: true, on: :create
   validates :user_role, inclusion: { in: [ ROLE_ADMIN, ROLE_USER ] }
   scope :receiving_consults, -> { where(can_receive_consults: true) }
   # --------------------------------------------------
   # Role helpers
   # --------------------------------------------------
-  def admin?; user_role == ROLE_ADMIN; end
+  def admin?; user_role == "admin"; end
   def user?; user_role == ROLE_USER; end
   def role_text; admin? ? "Admin" : "User"; end
 

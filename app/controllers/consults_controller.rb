@@ -38,10 +38,10 @@ class ConsultsController < ApplicationController
     @consult.assigned_at = Time.current if @consult.assigned_to_id.present?
 
     if @consult.save
-      flash[:notice] = "Consult created successfully."
-      redirect_to @consult
+      flash[:notice] = "Assist Sent."
+      redirect_to controller: "consults", action: "taskscreen"
     else
-      flash.now[:alert] = "Failed to create consult."
+      flash.now[:alert] = "An error occured, please try again."
       render :new, status: :unprocessable_entity
     end
   end
@@ -118,7 +118,7 @@ class ConsultsController < ApplicationController
   end
 
   def consult_params
-    params.require(:consult).permit(:title, :body, :assigned_to_id)
+    params.require(:consult).permit(:title, :assigned_to_id)
   end
 
   def set_eligible_users

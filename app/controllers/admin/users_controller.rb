@@ -9,6 +9,19 @@ class Admin::UsersController < ApplicationController
   end
   # for turbo auto loads cards and rows schedule
 
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to admin_users_path, notice: "User created successfully."
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def edit
   end
 
@@ -49,9 +62,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_params
-  params.require(:user).permit(
-    :name, :email, :user_role, :can_accept_fbx_neo, :can_receive_consults, :daily_consult_limit, :cooldown_minutes, :time_zone,
-    availabilities_attributes: [ :id, :day_of_week, :start_time, :end_time, :start_minute, :end_minute, :off, :_destroy ]
-  )
+  params.require(:user).permit(:name, :email, :password, :password_confirmation, :user_role, :can_accept_fbx_neo, :can_receive_consults, :daily_consult_limit, :cooldown_minutes, :time_zone,
+    availabilities_attributes: [ :id, :day_of_week, :start_time, :end_time, :start_minute, :end_minute, :off, :_destroy ])
   end
 end

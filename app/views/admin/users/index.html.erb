@@ -1,4 +1,10 @@
 <h2 class="pageheader"><i>All users</i></h2>
+
+<br>
+<% if current_user.admin? %>
+  <%= link_to "Create New User +", new_admin_user_path, class: "btn btn-primary" %>
+<% end %>
+<br>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -64,3 +70,10 @@
 <div id: "conss">
 <%= link_to "← Back", :back, class: "btn btn-primary" %>
 </div>
+<br>
+<br>
+<% if current_user.admin? %>
+  <%= link_to "Create New User", new_admin_user_path, class: "btn btn-primary" %>
+<% end %>
+<br>
+<br>

@@ -32,7 +32,7 @@ class Consult < ApplicationRecord
 
   # Validations
   validates :title, presence: true
-  validates :body, presence: true
+  # validates :body, presence: true per Dr. G no comss through app
 
   # something here is wrong TODO Fix idiot
   after_initialize :set_default_status, if: :new_record?

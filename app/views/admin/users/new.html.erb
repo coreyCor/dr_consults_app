@@ -1,0 +1,129 @@
+<h1>New User</h1>
+
+<% if @user.errors.any? %>
+  <div class="alert alert-danger">
+    <h4>The following errors prevented the user from being saved:</h4>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: [:admin, @user], local: true) do |f| %>
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :email %>
+    <%= f.email_field :email, class: "form-control" %>
+  </div>
+    <div class="mb-3">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+  <br>
+ <p> Retype </p>
+    <div class="mb-3">
+    <%= f.label :password %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+<br>
+  <div class="mb-3">
+    <%= f.label :user_role %>
+    <%= f.select :user_role, [["User", "user"], ["Admin", "admin"]], {}, class: "form-select" %>
+  </div>
+
+  <div class="mb-3 form-check">
+  <%= f.check_box :can_accept_fbx_neo, class: "form-check-input" %>
+  <%= f.label :can_accept_fbx_neo, "Eligible for FBX NEO consults", class: "form-check-label" %>
+</div>
+
+<div class="mb-3 form-check">
+  <%= f.check_box :can_receive_consults, class: "form-check-input" %>
+  <%= f.label :can_receive_consults,
+        "Eligible to receive consults",
+        class: "form-check-label" %>
+
+  <div class="form-text">
+    Allow this user to be assigned new consults
+  </div>
+</div>
+
+  <div class="mb-3">
+    <%= f.label :daily_consult_limit %>
+    <%= f.number_field :daily_consult_limit, class: "form-control", min: 0 %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :cooldown_minutes %>
+    <%= f.number_field :cooldown_minutes, class: "form-control", min: 0 %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :time_zone, "Time Zone" %>
+    <%= f.select :time_zone,
+      [
+        ["US Pacific", "Pacific Time (US & Canada)"],
+        ["US Central", "Central Time (US & Canada)"],
+        ["US Eastern", "Eastern Time (US & Canada)"],
+        ["US Mountain", "Mountain Time (US & Canada)"],
+        ["Alaska", "Alaska"], 
+        ["Hawaii", "Hawaii"],
+        ["United Kingdom", "London"]
+      ],
+      { prompt: "Select a Time Zone" },
+      class: "form-select"
+    %>
+  </div>
+
+  <p class="text-muted">
+    User Time Zone: <%= @user.time_zone %> <br>
+    Current Local Time: <%= @user.local_time.strftime("%I:%M %p") %>
+  </p>
+
+  <h3>Weekly Availability</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Off</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Date::DAYNAMES.each_with_index do |day_name, i| %>
+        <% availability = @user.availability_for(i) || @user.availabilities.build(day_of_week: i) %>
+        <%= f.fields_for :availabilities, availability do |af| %>
+          <tr>
+            <td><%= day_name %></td>
+            <td><%= af.time_field :start_time, class: "form-control", step: 60 %></td>
+            <td><%= af.time_field :end_time, class: "form-control", step: 60 %></td>
+              <td class="text-center">
+                <%= af.check_box :off %>
+
+              </td>
+              
+            <%= af.hidden_field :day_of_week, value: i %>
+          </tr>
+          <td>
+            
+          </td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= f.submit "Update User", class: "btn btn-primary" %>
+<% end %>
+
+
+<br>
+<hr>
+<div id: "conss">
+<%= link_to "← Back", :back, class: "btn btn-primary" %>
+</div>
