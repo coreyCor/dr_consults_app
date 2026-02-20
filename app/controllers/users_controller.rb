@@ -11,12 +11,13 @@ class UsersController < ApplicationController
 
  # Returns the table row content (for table view)
  def availability_row
-  @user = User.find(params[:id])
-  @eligible_users = User.eligible_for_consults(exclude_user: current_user)
+  @user = User
+    .includes(:availabilities, :assigned_consults)
+    .find(params[:id])
 
-   response.headers["Cache-Control"] = "no-store"
+  response.headers["Cache-Control"] = "no-store"
 
   render partial: "consults/user_row",
-         locals: { user: @user, eligible_users: @eligible_users }
+         locals: { user: @user }
  end
 end

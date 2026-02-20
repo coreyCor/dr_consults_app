@@ -1,8 +1,11 @@
-
 <turbo-frame id="row_frame_<%= user.id %>">
   <div class="table-row">
     <div>
-      <% if eligible_users.include?(user) %>
+      <% available = user.can_receive_consults? &&
+                     user.available_now? &&
+                     user.eligible_by_limits_and_cooldown? %>
+
+      <% if available %>
         <%= link_to user.name,
                     new_consult_path(assigned_to_id: user.id),
                     data: { turbo_frame: "_top" },
@@ -19,7 +22,7 @@
     </div>
 
     <div>
-      <% if eligible_users.include?(user) %>
+      <% if available %>
         <span class="badge bg-success">Available</span>
       <% else %>
         <span class="badge bg-secondary">Paused</span>

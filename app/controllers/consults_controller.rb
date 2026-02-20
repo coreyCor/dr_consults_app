@@ -96,7 +96,6 @@ class ConsultsController < ApplicationController
   end
 
    def schedule
-    # Show all users who can receive consults, regardless of current minute
     @eligible_users = User.where.not(id: current_user.id)
                           .receiving_consults
                           .includes(:availabilities)
@@ -104,10 +103,11 @@ class ConsultsController < ApplicationController
 
 
      def taskscreen
-       # Show all users who can receive consults, regardless of current minute
-       @eligible_users = User.where.not(id: current_user.id)
-                          .receiving_consults
-                          .includes(:availabilities)
+       # Show all users who can receive consults
+       @eligible_users = User
+            .receiving_consults
+            .where.not(id: current_user.id)
+            .includes(:availabilities, :assigned_consults)
        @consults = current_user.assigned_consults.order(created_at: :desc)
      end
 

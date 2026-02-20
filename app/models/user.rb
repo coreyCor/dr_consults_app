@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   # --------------------------------------------------
-  # Defaults
+  # Default set up for a users time zone ---dead old code.
+  # could be removed since now its set atset up.
   # --------------------------------------------------
   after_initialize do
     self.time_zone ||= "Pacific Time (US & Canada)"
@@ -50,7 +51,7 @@ class User < ApplicationRecord
   validates :user_role, inclusion: { in: [ ROLE_ADMIN, ROLE_USER ] }
   scope :receiving_consults, -> { where(can_receive_consults: true) }
   # --------------------------------------------------
-  # Role helpers
+  # Role helpers take another look something is off
   # --------------------------------------------------
   def admin?; user_role == "admin"; end
   def user?; user_role == ROLE_USER; end
@@ -74,7 +75,9 @@ def self.eligible_for_consults(exclude_user: nil)
     user.can_receive_consults? && user.available_now? && user.eligible_by_limits_and_cooldown?
   end
 end
-
+  # --------------------------------------------------
+  # Fbxneo elgibility dow here
+  # ---------------------------------------------------
 
   def self.eligible_for_fbx_neo(exclude_user: nil)
   users = where(can_accept_fbx_neo: true)
@@ -85,7 +88,7 @@ end
 
 
   # --------------------------------------------------
-  # Availability
+  # Availability. (if avail)
   # --------------------------------------------------
   def available_now?
     Time.use_zone(time_zone) do
@@ -124,13 +127,15 @@ end
       end
     end
   end
-
+  #-------------
+  # schedule page helper mostly used for a view no one sees yet
+  #-------------
   def availability_for(day_of_week)
     availabilities.find { |a| a.day_of_week == day_of_week }
   end
 
   # --------------------------------------------------
-  # Eligibility checks
+  # whole shebang cooldown and within the day limit amout
   # --------------------------------------------------
   def eligible_by_limits_and_cooldown?
     Time.use_zone(time_zone) { within_daily_limit? && past_cooldown? }
