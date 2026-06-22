@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
-  # Returns the full availability card (for the cards view)
+  # Returns the full availability card (for the cards view...which is no longer used)
   def availability
     @user = User.find(params[:id])
     response.headers["Cache-Control"] = "no-store"
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
  # Returns the table row content (for table view)
  def availability_row
-  @user = User
+    @user = User
     .includes(:availabilities, :assigned_consults)
     .find(params[:id])
 

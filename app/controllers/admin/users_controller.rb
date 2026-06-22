@@ -45,8 +45,8 @@ class Admin::UsersController < ApplicationController
 
     # weekly is used to show week to admin -> quick view. TODO, set time from here too!
     def weekly_schedule
-      # Load all users with their availabilities
-      @users = User.includes(:availabilities).all
+       # Load all users with their availabilities
+       @users = User.includes(:availabilities).all
        # Days of the week for header
        @days_of_week = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday]
     end

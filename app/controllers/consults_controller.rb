@@ -5,9 +5,9 @@ class ConsultsController < ApplicationController
   before_action :authorize_owner!, only: [ :edit, :update, :destroy ]
 
   # GET /consults
-  def index
-    # @consults = current_user.asked_consults.order(created_at: :desc)
-  end
+  # def index
+  # Show all users who can receive consults
+  # end
 
   # GET /consults/new
   # def new
@@ -15,12 +15,12 @@ class ConsultsController < ApplicationController
   # end
   #
   def new
-  @consult = Consult.new
+    @consult = Consult.new
 
-  # Preassign the "assigned_to" user if passed from the schedule view
-  if params[:assigned_to_id].present?
-    @consult.assigned_to_id = params[:assigned_to_id]
-  end
+    # Preassign the "assigned_to" user if passed from the schedule -> whats now the taskscreen  view
+    if params[:assigned_to_id].present?
+     @consult.assigned_to_id = params[:assigned_to_id]
+    end
   end
 
 
