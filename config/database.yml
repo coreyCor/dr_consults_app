@@ -5,17 +5,17 @@ default: &default
   host: <%= ENV.fetch("PGHOST") { "localhost" } %>
   username: <%= ENV.fetch("PGUSER") { "postgres" } %>
   password: <%= ENV.fetch("PGPASSWORD") { "" } %>
- 
+
 development:
-<<: *default
+  <<: *default
   database: dr_consults_app_development
- 
+
 test:
-<<: *default
+  <<: *default
   database: dr_consults_app_test
- 
+
 production:
-<<: *default
+  <<: *default
   database: dr_consults_app_production
   username: <%= ENV["PGUSER"] %>
   password: <%= ENV["PGPASSWORD"] %>
