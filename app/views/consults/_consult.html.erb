@@ -7,10 +7,14 @@
     <%= link_to consult.title, consult_path(consult) %>
   </h5>
 
-  <small>
-    <%# fix below to point to assigned to%>
-    Assigned by  <%= consult.asked_by.name %> •
+   <small>
+    <% if consult.asked_by == viewer %>
+      Assigned to <%= consult.assigned_to&.name || "unassigned" %> •
+    <% else %>
+      Assigned by <%= consult.asked_by.name %> •
+    <% end %>
     <%= time_ago_in_words(consult.created_at) %> ago
   </small>
+
 
 </div>

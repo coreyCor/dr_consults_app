@@ -28,5 +28,9 @@
         <span class="badge bg-secondary">Paused</span>
       <% end %>
     </div>
+
+    <div>
+      <%= user.works_tomorrow? ? "Y" : "N" %>
+    </div>
   </div>
 </turbo-frame>

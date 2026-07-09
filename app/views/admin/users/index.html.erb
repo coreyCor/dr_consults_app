@@ -14,6 +14,7 @@
       <th></th> 
       <th>Daily Limit</th>
       <th>Cooldown (min)</th>
+      <th>Works Tomorrow?</th>
     <th>Actions</th>
     </tr>
   </thead>
@@ -29,6 +30,7 @@
 
         <td><%= user.daily_consult_limit || "N/A" %></td>
         <td><%= user.cooldown_minutes || "N/A" %></td>
+        <td><%= user.works_tomorrow? ? "Y" : "N" %></td>
         <td>
          
 <!--this is a test for schdule showing on main screen-->

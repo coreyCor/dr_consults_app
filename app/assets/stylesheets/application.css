@@ -1,6 +1,13 @@
+
+
+
+a {
+  color: #463797;
+}
+
 .hero-image  {
-  height: 60px;
-  object-fit: cover; /* scales and crops to fit  */
+  height: 50px;
+  /* object-fit: cover; /* scales and crops to fit  */
   width: 50%;
 }
 
@@ -38,7 +45,7 @@
 .table-header,
 .table-row {
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
+  grid-template-columns: 2fr 2fr 1fr 1fr;
   align-items: center;
 }
 
@@ -84,7 +91,7 @@
 
 
 .floater {
-  font-family: "Papyrus";
+  
   float: right;
   padding: 0px 25px 0px 0px;
 }

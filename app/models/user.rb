@@ -107,6 +107,18 @@ end
     end
   end
 
+  def works_tomorrow?
+    Time.use_zone(time_zone) do
+      tomorrow_wday = (Time.zone.now + 1.day).wday
+      availability = availabilities.find { |a| a.day_of_week == tomorrow_wday }
+
+      availability.present? && !availability.off?
+    end
+  end
+
+
+
+
   def works_within_next_48_hours?
     Time.use_zone(time_zone) do
       now = Time.zone.now
