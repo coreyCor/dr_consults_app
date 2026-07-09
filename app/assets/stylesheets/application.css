@@ -1,15 +1,9 @@
 
-
-
-a {
-  color: #463797;
+html {
+  font-size: 80%;
 }
 
-.hero-image  {
-  height: 50px;
-  /* object-fit: cover; /* scales and crops to fit  */
-  width: 50%;
-}
+
 
 
 /* this is so bunk, need to put it somewhere better*/

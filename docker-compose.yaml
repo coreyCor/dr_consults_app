@@ -4,8 +4,10 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql
     environment:
+    
       POSTGRES_PASSWORD: password
       POSTGRES_USER: postgres
+      POSTGRES_DB: dr_consults_app_development
     ports:
       - "5432:5432"
     healthcheck:
