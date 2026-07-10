@@ -14,12 +14,7 @@ test:
   <<: *default
   database: dr_consults_app_test
 
-production:
-  <<: *default
-  database: dr_consults_app_production
-  username: <%= ENV["PGUSER"] %>
-  password: <%= ENV["PGPASSWORD"] %>
-  host: <%= ENV["PGHOST"] %>
+
 
 
   production:
