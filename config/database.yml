@@ -20,3 +20,8 @@ production:
   username: <%= ENV["PGUSER"] %>
   password: <%= ENV["PGPASSWORD"] %>
   host: <%= ENV["PGHOST"] %>
+
+
+  production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
