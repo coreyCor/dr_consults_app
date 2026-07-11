@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_17_232152) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_11_005926) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -62,6 +62,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_17_232152) do
     t.index ["asked_by_id"], name: "index_consults_on_asked_by_id"
     t.index ["assigned_to_id"], name: "index_consults_on_assigned_to_id"
     t.index ["consult_type"], name: "index_consults_on_consult_type"
+    t.index ["id"], name: "index_consults_on_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
