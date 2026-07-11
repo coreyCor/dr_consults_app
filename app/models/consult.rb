@@ -104,5 +104,7 @@ end
         viewer: assigned_user
       }
     )
+  rescue ArgumentError => e
+  Rails.logger.warn "Turbo broadcast failed: #{e.message}"
   end
-end  # ← class closes here, after everything
+end  # class closes here, after everything
