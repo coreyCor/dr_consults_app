@@ -4,6 +4,10 @@
 <% if current_user.admin? %>
   <%= link_to "Create New User +", new_admin_user_path, class: "btn btn-primary" %>
 <% end %>
+
+<br>
+<br>
+<%= link_to "📅 Weekly Schedule", weekly_schedule_admin_users_path, class: "btn btn-outline-primary mb-3" %>
 <br>
 <table class="table table-striped">
   <thead>
