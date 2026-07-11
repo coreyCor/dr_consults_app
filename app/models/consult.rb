@@ -84,26 +84,25 @@ def assign_users!(users)
     )
   end
 end
+  # Boolean helpers. AI Saved me here !!
   # Boolean helpers
   def pending?; consult_status == STATUS_PENDING; end
   def answered?; consult_status == STATUS_ANSWERED; end
-end
 
   private
 
- def broadcast_assigned_consult
-  return unless saved_change_to_assigned_to_id?
-
-  assigned_user = User.find_by(id: assigned_to_id)
-  return unless assigned_user
-
-  broadcast_prepend_to(
-    "assigned_consults_user_#{assigned_user.id}",
-    target: "assigned_consults",
-    partial: "consults/consult",
-    locals: {
-      consult: self,
-      viewer: assigned_user
-    }
-  )
- end
+  def broadcast_assigned_consult
+    return unless saved_change_to_assigned_to_id?
+    assigned_user = User.find_by(id: assigned_to_id)
+    return unless assigned_user
+    broadcast_prepend_to(
+      "assigned_consults_user_#{assigned_user.id}",
+      target: "assigned_consults",
+      partial: "consults/consult",
+      locals: {
+        consult: self,
+        viewer: assigned_user
+      }
+    )
+  end
+end  # ← class closes here, after everything
