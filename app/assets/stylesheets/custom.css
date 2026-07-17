@@ -115,4 +115,14 @@ a {
   color: black;
 }
 
+/*this is the submit button in the assist form partial*/
 
+.btn-purple {
+  background-color: #463797;
+  color: white;
+}
+
+.btn-purple:hover {
+  background-color: #463797;
+  color: white;
+}

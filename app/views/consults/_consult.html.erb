@@ -18,7 +18,7 @@
         Assigned by <%= consult.asked_by.name %> •
       <% end %>
     <% else %>
-      <% if consult.asked_by == viewer %>
+   <% if consult.asked_by == viewer %> 
         Assigned to <%= consult.assigned_to&.name || "unassigned" %> •
       <% else %>
         Assigned by <%= consult.asked_by.name %> •

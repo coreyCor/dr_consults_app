@@ -2,31 +2,48 @@
 <br>
 <br>
 
-<%= form_with model: @consult, url: fbx_neo_consults_path do |f| %>
+<div class="row justify-content-center mt-4">
+  <div class="col-md-5">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
 
-  <div class="mb-3">
-    <%= f.label :Accession %>
-    <%= f.text_field :title, class: "form-control", maxlength: 20 %>
-  </div>
+        <h4 class="text-center mb-4 pageheader">New FBX NEO Request</h4>
 
-  <!--<div class="mb-3">
-    <%= f.label :Question %>
-    <%= f.text_area :body, class: "form-control" %>
-  </div>
--->
-  <h4>Select 2–5 recipients</h4>
+        <%= form_with model: @consult, url: fbx_neo_consults_path do |f| %>
 
-  <% @eligible_users.each do |user| %>
-    <div class="form-check">
-      <%= check_box_tag "assigned_user_ids[]", user.id, false,
-            class: "form-check-input",
-            id: "user_#{user.id}" %>
-      <%= label_tag "user_#{user.id}", user.name, class: "form-check-label" %>
+          <div class="mb-3">
+            <%= f.label :Accession, class: "form-label fw-bold" %>
+            <%= f.text_field :title, class: "form-control", maxlength: 20 %>
+          </div>
+
+          <!--<div class="mb-3">
+            <%= f.label :Question %>
+            <%= f.text_area :body, class: "form-control" %>
+          </div>-->
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Select 2–5 recipients</label>
+            <% @eligible_users.each do |user| %>
+              <div class="form-check">
+                <%= check_box_tag "assigned_user_ids[]", user.id, false,
+                  class: "form-check-input",
+                  id: "user_#{user.id}" %>
+                <%= label_tag "user_#{user.id}", user.name, class: "form-check-label" %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="d-grid mt-4">
+            <%= f.submit "Create FBX NEO", class: "btn btn-purple" %>
+          </div>
+
+        <% end %>
+
+      </div>
     </div>
-  <% end %>
+    <div class="mt-3">
+      <%= link_to " Back", :back, class: "btn btn-purple" %>
+    </div>
+  </div>
 
-  <%= f.submit "Create FBX NEO", class: "btn btn-primary mt-3" %>
-<% end %>
-<div id: "conss">
-<%= link_to "← Back", :back, class: "btn btn-primary", id: "back_button" %>
 </div>
