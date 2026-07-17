@@ -4,6 +4,10 @@ html {
 }
 
 
+a {
+  text-decoration: none !important;
+ 
+}
 
 
 /* this is so bunk, need to put it somewhere better*/
@@ -110,3 +114,5 @@ html {
 .tester {
   color: black;
 }
+
+
