@@ -101,7 +101,7 @@ a {
   border: 1px solid #ede8ec;
   padding: 12px;
   margin-bottom: 10px;
-  border-radius: 6px;
+  border-radius: 2px;
   transition: border 0.2s ease;
   box-shadow: 19px 18px 22px 4px #000000
 }
@@ -118,11 +118,11 @@ a {
 /*this is the submit button in the assist form partial*/
 
 .btn-purple {
-  background-color: #463797;
+  background-color: #4a1670;
   color: white;
 }
 
 .btn-purple:hover {
-  background-color: #463797;
+  background-color: #4a1670;
   color: white;
 }
