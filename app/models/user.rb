@@ -106,6 +106,14 @@ end
       now_minutes.between?(availability.start_minute, availability.end_minute)
     end
   end
+  def works_today?
+  Time.use_zone(time_zone) do
+    today = Time.zone.now.wday
+    availability = availabilities.find { |a| a.day_of_week == today }
+    return false unless availability
+    !availability.off?
+   end
+  end
 
   def works_tomorrow?
     Time.use_zone(time_zone) do
