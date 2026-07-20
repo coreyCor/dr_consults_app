@@ -1,3 +1,4 @@
+
 <h2 class="pageheader">FBX NEOs asked of me </h2>
 <br>
 <br>
@@ -5,20 +6,18 @@
 <% if @consults.any? %>
   <% @consults.each do |consult| %>
     <div class="consult-card mb-2 p-2 shadow-sm bg-light">
-      <div class="card-body">
-        <h5>
-          <%= link_to consult.title, fbx_neo_consult_path(consult) %>
-        </h5>
-
-        <p class="text-muted">
-          Requested by: <%= consult.asked_by.name %>
-        </p>
-
-        <p>
-          Assigned team size:
-          <strong><%= consult.assigned_users.count %></strong>
-        </p>
-      </div>
+      <%= link_to fbx_neo_consult_path(consult), class: "text-decoration-none text-dark d-block" do %>
+        <div class="card-body">
+          <h5><%= consult.title %></h5>
+          <p class="text-muted">
+            Requested by: <%= consult.asked_by.name %>
+          </p>
+          <p>
+            Assigned team size:
+            <strong><%= consult.assigned_users.count %></strong>
+          </p>
+        </div>
+      <% end %>
     </div>
   <% end %>
 <% else %>
@@ -27,8 +26,8 @@
 <br>
 <br>
 <hr>
-<div id: "conss">
-<%= link_to "← Back", :back, class: "btn btn-purple" %>
+<div id="conss">
+  <%= link_to "← Back", :back, class: "btn btn-purple" %>
 </div>
 <br>
 <br>
