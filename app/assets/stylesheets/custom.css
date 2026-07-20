@@ -84,7 +84,8 @@ a {
 
 
 .pageheader {
-  font-weight: lighter;
+  font-weight: lighter; 
+  
 }
 
 
@@ -118,11 +119,15 @@ a {
 /*this is the submit button in the assist form partial*/
 
 .btn-purple {
-  background-color: #4a1670;
+  background-color: #6e3b92;
   color: white;
 }
 
 .btn-purple:hover {
   background-color: #4a1670;
   color: white;
+}
+
+body {
+  background-color: rgb(255, 255, 255);
 }

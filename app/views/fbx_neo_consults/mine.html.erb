@@ -1,10 +1,10 @@
-<h2 class="pageheader"><u>FBX NEOs Asked Of Me </u></h2>
+<h2 class="pageheader">FBX NEOs asked of me </h2>
 <br>
 <br>
 
 <% if @consults.any? %>
   <% @consults.each do |consult| %>
-    <div class="consult-card mb-3 p-2 shadow-sm">
+    <div class="consult-card mb-2 p-2 shadow-sm bg-light">
       <div class="card-body">
         <h5>
           <%= link_to consult.title, fbx_neo_consult_path(consult) %>

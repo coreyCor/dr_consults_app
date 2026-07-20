@@ -1,15 +1,19 @@
 
-<h2 class="pageheader"><u>New FBX Neo Request</u></h2>
+<h2 class="pageheader">New FBX NEO request</h2>
 <br>
 <br>
+<hr>
+<br>
+
 
 <div class="row justify-content-center mt-4">
   <div class="col-md-5">
-    <div class="card shadow-sm">
-      <div class="card-body p-4">
+    <div class="card shadow-lg">
+      <div class="card-body p-4 bg-light">
 
-        <h4 class="text-center mb-4 pageheader">New FBX NEO Request</h4>
-
+        <h4 class="text-center mb-4 ">New FBX NEO Request</h4>
+        <br>
+        <br>
         <%= form_with model: @consult, url: fbx_neo_consults_path, id: "fbx-form" do |f| %>
 
           <div class="mb-3">
@@ -36,17 +40,19 @@
               Please select between 2 and 5 recipients.
             </div>
           </div>
-
+          
           <div class="d-grid mt-4">
-            <%= f.submit "Create FBX NEO", class: "btn btn-purple" %>
+            <%= f.submit "Submit FBX Neo", class: "btn btn-purple" %>
           </div>
 
         <% end %>
 
       </div>
     </div>
+    <br>
+    <br>
     <div class="mt-3">
-      <%= link_to "Back", :back, class: "btn btn-purple" %>
+      <%= link_to "← Back", :back, class: "btn btn-purple" %>
     </div>
   </div>
 </div>
@@ -68,3 +74,8 @@
     });
   });
 </script>
+<br>
+<br>
+<hr>
+<br>
+<br>

@@ -1,34 +1,33 @@
-
-
 <div id="<%= dom_id(consult) %>"
-     class="consult-card mb-3 p-2 border shadow-sm
-     <%= 'border-dark border-3' if consult.unread_for?(viewer) %>">
+     class="consult-card mb-2 p-3 border shadow-sm bg-light
+    <%= 'border-dark border-2' if consult.unread_for?(viewer) %>">
 
-  <h5>
-    Accession:
-    <%= link_to consult.title, consult_path(consult) %>
-    
-  </h5>
+    <%= link_to consult_path(consult), class: "text-decoration-none text-dark d-block" do %>
+    <h5 class="accession_in_card">
+      Accession:
+      <%= consult.title %>
+    </h5>
 
-  <small>
-    <% if consult.fbx_neo? %>
-      <% if consult.asked_by == viewer %>
-        Assigned to team (<%= consult.assigned_users.size %>) •
+    <small>
+      <% if consult.fbx_neo? %>
+        <% if consult.asked_by == viewer %>
+          Assigned to team (<%= consult.assigned_users.size %>) •
+        <% else %>
+          Assigned by <%= consult.asked_by.name %> •
+        <% end %>
       <% else %>
-        Assigned by <%= consult.asked_by.name %> •
+        <% if consult.asked_by == viewer %>
+          Assigned to <%= consult.assigned_to&.name || "unassigned" %> •
+        <% else %>
+          Assigned by <%= consult.asked_by.name %> •
+        <% end %>
       <% end %>
-    <% else %>
-   <% if consult.asked_by == viewer %> 
-        Assigned to <%= consult.assigned_to&.name || "unassigned" %> •
-      <% else %>
-        Assigned by <%= consult.asked_by.name %> •
+      <%= time_ago_in_words(consult.created_at) %> ago
+      <br>
+      <% if consult.fbx_neo? %>
+        <small class="text-danger text-decoration-underline ms-1">FBX NEO</small>
       <% end %>
-    <% end %>
-    <%= time_ago_in_words(consult.created_at) %> ago
-    <br>
-    <% if consult.fbx_neo? %>
-      <small class="text-danger text-decoration-underline ms-1">FBX NEO</small>
-    <% end %>
-  </small>
+    </small>
+  <% end %>
 
 </div>
