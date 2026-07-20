@@ -108,6 +108,7 @@ class ConsultsController < ApplicationController
             .receiving_consults
             .where.not(id: current_user.id)
             .includes(:availabilities, :assigned_consults)
+            .select(&:available_now?)
        @consults = current_user.assigned_consults.order(created_at: :desc)
      end
 
