@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, skip: [ :registration ]
 
   namespace :admin do
+    get "dashboard", to: "dashboard#index"
     resources :users, only: [ :index, :new, :create, :edit, :update ] do
       collection do
         get :weekly_schedule

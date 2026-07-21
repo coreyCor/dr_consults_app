@@ -1,0 +1,74 @@
+<h2 class="pageheader"><i><u>Admin Dashboard</u></i></h2>
+<br>
+
+<%# Stat cards %>
+<div class="row mb-4">
+  <div class="col-md-4">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h3><%= @total_today %></h3>
+        <p class="text-muted mb-0">Assists Today</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h3><%= @answered %></h3>
+        <p class="text-muted mb-0">Answered</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h3><%= @fbx_neos_today %></h3>
+        <p class="text-muted mb-0">FBX NEOs Today</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# Consults table %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>Accession</th>
+        <th>Type</th>
+        <th>Requested By</th>
+        <th>Assigned To</th>
+        <th>Sent</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @consults.each do |consult| %>
+        <tr>
+          <td>
+            <%= link_to consult.title,
+                consult.fbx_neo? ? fbx_neo_consult_path(consult) : consult_path(consult) %>
+          </td>
+          <td>
+            <% if consult.fbx_neo? %>
+              <span class="badge bg-danger">FBX NEO</span>
+            <% else %>
+              <span class="badge bg-secondary">Standard</span>
+            <% end %>
+          </td>
+          <td><%= consult.asked_by&.name %></td>
+          <td>
+            <% if consult.fbx_neo? %>
+              Team (<%= consult.consult_assignments.size %>)
+            <% else %>
+              <%= consult.assigned_to&.name || "Unassigned" %>
+            <% end %>
+          </td>
+          <td><%= time_ago_in_words(consult.created_at) %> ago</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>
+<%= link_to "← Back", root_path, class: "btn btn-primary" %>
