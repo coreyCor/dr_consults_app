@@ -40,11 +40,11 @@
 
     <p class="mt-3">
       <strong>Requested on:</strong>
-      <%= @consult.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%b %d, %Y %I:%M %p") %>
+      <%= current_user.local_time(@consult.created_at).strftime("%b %d, %Y %I:%M %p") %>
     </p>
     <br>
           <% if @consult.fbx_neo? %>
-        <small class="text-danger text-decoration-underline ms-1">FBX NEO</small>
+        <small class="text-danger text-decoration-underline ms-1">FBX NEO </small>
       <% end %>
   </div>
 </div>

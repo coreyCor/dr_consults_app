@@ -28,8 +28,8 @@
     </ul>
 
     <p class="text-muted mt-3">
-      Created at:
-      <%= @consult.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%b %d, %Y %I:%M %p") %>
+      Requested on:
+      <%= current_user.local_time(@consult.created_at).strftime("%b %d, %Y %I:%M %p") %>
     </p>
   </div>
 </div>
