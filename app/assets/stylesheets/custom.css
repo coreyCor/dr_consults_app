@@ -88,11 +88,10 @@ a {
 
 
 #navvy{
-    position: sticky; /* Element remains in normal flow, then sticks when the threshold is met */
-    top: 0;           /* The point where the element becomes sticky (0px from the top) */
-    z-index: 999;     /* Ensures the navbar is above other elements once sticky */
-    /* Add other styling like background-color, padding, etc. 
-    copied from an online source :))))*/
+    position: sticky; 
+    top: 0;           
+    z-index: 999;     
+   
 }
 
 
@@ -143,4 +142,15 @@ a {
 
 body {
   background-color: rgb(255, 255, 255);
+}
+
+/*cheveron animate BS utility.*/
+
+
+.btn[aria-expanded="true"] .bi-chevron-down {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease;
+}
+.bi-chevron-down {
+  transition: transform 0.2s ease;
 }
