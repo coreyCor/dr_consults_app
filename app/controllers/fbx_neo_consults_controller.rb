@@ -44,7 +44,7 @@ class FbxNeoConsultsController < ApplicationController
   @consult = Consult.find(params[:id])
 
   unless @consult.consult_type == Consult::FBX_NEO &&
-         (@consult.asked_by == current_user ||
+         (current_user.admin? || @consult.asked_by == current_user ||
           @consult.assigned_users.include?(current_user))
     redirect_to root_path, alert: "You are not authorized to view this FBX NEO."
   end
