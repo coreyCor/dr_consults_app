@@ -11,7 +11,7 @@
 
 <body>
 
-<%# top navebar %>  
+<%# top navbar %>  
 <nav class="navbar navbar-expand-lg navbar-light border-bottom bg-light" id="navvy">
   <div class="container-fluid">
     <%= link_to "[ Antech Path Assist ]", root_path, class: "navbar-brand" %>
@@ -71,7 +71,7 @@
       <div class="px-2 pt-2 pb-3">
         
         <br>
-        <p class="fw-regular fs-5 text-decoration-underline mb-2 px-1;">Specialties *
+        <p class="fw-regular fs-5 text-decoration-none mb-2 px-1;">Specialties Reference
           
           <span class="material-symbols-outlined">oncology</span>
 
@@ -95,7 +95,7 @@
           "Renal / Urinary" => ["Gerdin"],
           "Reproductive" => ["Hauck", "Herd", "Lin", "Lund", "Ranck", "Skirpstunas"],
           "Respiratory" => ["Bera", "Ford", "Gerdin"],
-          "Zoo / PocketPets / Exotics" => ["Bacmeister - (Sm Mammal)", "Ellis - (Sm Mammal)", "Fisher - (Sm Mammal)", "Ford", "Hauck", "Imanse (Ch)", "McDermott", "Rice", "Schiller", "Skirpstunas", "Sokol", "Traslavina", "Yau"]
+          "Zoo/ PocketPets/ Exotics" => ["Bacmeister - (Sm Mammal)", "Ellis - (Sm Mammal)", "Fisher - (Sm Mammal)", "Ford", "Hauck", "Imanse (Ch)", "McDermott", "Rice", "Schiller", "Skirpstunas", "Sokol", "Traslavina", "Yau"]
         }.each_with_index do |(specialty, doctors), index| %>
           <% slug = specialty.downcase.gsub(/[^a-z0-9]/, "-").gsub(/-+/, "-") %>
           <div class="mb-1">
@@ -124,7 +124,7 @@
   <div class="flex-grow-1" style="min-width: 0;">
     <div class="floater">
       <% if user_signed_in? %>
-        <h6><u><%= current_user&.name %></u></h6>
+        <h6><u class ="name_on_page"><%= current_user&.name %></u></h6>
       <% end %>
     </div>
 
@@ -151,5 +151,42 @@
   </div>
 
 </div>
+<%# this is the floating button%>
+
+<%# Floating schedule button — only show when logged in %>
+<% if user_signed_in? %>
+
+  <%# Floating button %>
+  <button type="button"
+          class="btn btn-purple rounded-circle shadow"
+          data-bs-toggle="modal"
+          data-bs-target="#scheduleModal"
+          style="position: fixed; bottom: 30px; right: 30px; width: 56px; height: 56px; font-size: 1.4rem; z-index: 1050;">
+          <i class="bi bi-calendar-date-fill"></i>
+  </button>
+
+  <%# Modal %>
+  <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="scheduleModalLabel">Schedule</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <iframe src="/schedule.pdf" width="100%" height="600px" style="border: none;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+
+
+
+
+
+
+
 </body>
 </html>
