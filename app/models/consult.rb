@@ -34,7 +34,7 @@ class Consult < ApplicationRecord
   validates :title, presence: true
   # validates :body, presence: true per Dr. G no comss through app
 
-  # something here is wrong TODO Fix idiot
+  # something here is wrong TODO Fix
   after_initialize :set_default_status, if: :new_record?
 
   def set_default_status
@@ -95,16 +95,22 @@ end
     return unless saved_change_to_assigned_to_id?
     assigned_user = User.find_by(id: assigned_to_id)
     return unless assigned_user
+
     broadcast_prepend_to(
       "assigned_consults_user_#{assigned_user.id}",
       target: "assigned_consults",
       partial: "consults/consult",
-      locals: {
-        consult: self,
-        viewer: assigned_user
-      }
+      locals: { consult: self, viewer: assigned_user }
     )
+    broadcast_replace_to(
+    "daily_counter_#{assigned_user.id}",
+    target: "daily_counter_#{assigned_user.id}",
+    partial: "consults/daily_counter",
+    locals: { user: assigned_user }
+    )
+
+
   rescue ArgumentError => e
   Rails.logger.warn "Turbo broadcast failed: #{e.message}"
   end
-end  # class closes here, after everything
+end  # class

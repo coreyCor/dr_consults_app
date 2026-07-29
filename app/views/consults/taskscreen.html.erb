@@ -1,9 +1,14 @@
 
-
 <hr>
+
+
 <h3 class = "pageheader">Request an assist</h3>
 <br>
 
+<% if user_signed_in? %>
+  <%= turbo_stream_from "daily_counter_#{current_user.id}" %>
+  <%= render partial: "consults/daily_counter", locals: { user: current_user } %>
+<% end %>
 
 
 <div class="availability-table">

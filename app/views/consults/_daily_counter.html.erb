@@ -1,0 +1,14 @@
+<% today_range = Time.zone.now.beginning_of_day..Time.zone.now.end_of_day %>
+<% assigned_today = user.assigned_consults.where(assigned_at: today_range).count %>
+<% limit = user.daily_consult_limit %>
+
+<%= turbo_frame_tag "daily_counter_#{user.id}" do %>
+  <div class="mb-3">
+    <small class="text-muted">
+       
+      <strong>Assigned today: <%= assigned_today %></strong>
+      /
+      <strong>Limit: <%= limit.present? ? limit : "No limit" %> </strong>
+    </small>
+  </div>
+<% end %>
