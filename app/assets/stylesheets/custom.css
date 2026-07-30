@@ -51,6 +51,7 @@ a {
   grid-template-columns: 1fr;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
+  
 }
 
 .table-header,
@@ -87,12 +88,8 @@ a {
 
 
 
-#navvy{
-    position: sticky; 
-    top: 0;           
-    z-index: 999;     
-   
-}
+
+
 
 
 .pageheader {
@@ -104,7 +101,7 @@ a {
 .floater {
   
   float: right;
-  padding: 0px 25px 0px 0px;
+  padding: 10px 20px 0px 0px;
 }
 
 
@@ -131,14 +128,23 @@ a {
 /*this is the submit button in the assist form partial*/
 
 .btn-purple {
-  background-color: #6e3b92;
+  background-color: #462fc2;
   color: white;
 }
 
 .btn-purple:hover {
-  background-color: #4a1670;
+  background-color: #462fc2;
   color: white;
 }
+
+.btn-purple:focus,
+.btn-purple:focus-visible {
+  background-color: #462fc2;
+  color: white;
+  box-shadow: 0 0 0 0.25rem rgba(94, 28, 141, 0.5);
+}
+
+
 
 body {
   background-color: rgb(255, 255, 255);
@@ -156,3 +162,29 @@ body {
 }
 
 
+#navvy {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: #463797;
+
+}
+
+/* Make brand, links, and toggler white */
+#navvy .navbar-brand,
+#navvy .nav-link {
+  color: #ffffff;
+}
+
+#navvy .nav-link:hover {
+  color: #ffffff; /* slightly lighter purple-white on hover */
+}
+
+/* The hamburger icon needs help too — it's dark by default */
+#navvy .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+#navvy .navbar-toggler-icon {
+  filter: invert(1);
+}
