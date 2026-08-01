@@ -21,14 +21,29 @@
             <% @days_of_week.each_with_index do |day, dow| %>
               <% availability = user.availabilities.find { |a| a.day_of_week == dow } %>
               <td class="px-3">
-                <% if availability && availability.start_time && availability.end_time %>
-                  <span class="badge rounded-pill px-3 py-2" style="background-color:#463797; color: #ffffff; font-size: 0.8rem;">
-                    <%= availability.start_time.strftime("%I:%M") %> - <%= availability.end_time.strftime("%I:%M") %>
-                  </span>
-                <% else %>
-                  <span class="text-muted small">N/A</span>
-                <% end %>
-              </td>
+                <% if availability.nil? %>
+                   <span class="text-muted small">N/A</span>
+                <% elsif availability.off? %>
+                    <span class="badge rounded-pill px-3 py-2" style="background-color:#e0e0e0; color:#666; font-size:0.8rem;">
+                      Off
+                    </span>
+                <% elsif availability.start_time && availability.end_time %>
+                <span class="badge rounded-pill px-3 py-2" style="background-color:#e0e0e0; color:#666; font-size:0.8rem;">
+             <%= availability.start_time.strftime("%I:%M") %> - <%= availability.end_time.strftime("%I:%M") %>
+    </span>
+  <% else %>
+    <span class="text-muted small">N/A</span>
+  <% end %>
+</td>
+
+
+
+
+
+
+
+
+
             <% end %>
           </tr>
         <% end %>
