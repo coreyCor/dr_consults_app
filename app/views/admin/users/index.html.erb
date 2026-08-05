@@ -1,85 +1,68 @@
 <h2 class="pageheader"><i>All users</i></h2>
-
 <br>
+
 <% if current_user.admin? %>
   <%= link_to "Create New User +", new_admin_user_path, class: "btn btn-purple" %>
 <% end %>
 
-<br>
-<br>
+<br><br>
+
 <%= link_to "📅 7 Day Path Schedule", weekly_schedule_admin_users_path, class: "btn btn-outline-primary mb-3" %>
-<br>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Role</th>
-      
-      <th>Daily Limit</th>
-      <th>Cooldown (min)</th>
-      <th>Works Tomorrow?</th>
-    <th>Actions</th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @users.order(:name).each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.user_role.capitalize %></td>
-        <td>
-      </td> 
+<br><br>
 
-        <td><%= user.daily_consult_limit || "N/A" %></td>
-        <td><%= user.cooldown_minutes || "N/A" %></td>
-        <td><%= user.works_tomorrow? ? "Y" : "N" %></td>
-        <td>
-         
-<!--this is a test for schdule showing on main screen-->
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  <% @users.order(:name).each do |user| %>
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <strong><%= user.name %></strong>
+          <%= link_to "Edit", edit_admin_user_path(user), class: "btn btn-sm btn-purple" %>
+        </div>
+        <div class="card-body">
+          <p class="mb-1"><small class="text-muted">Email:</small> <%= user.email %></p>
+          <p class="mb-1"><small class="text-muted">Role:</small> <%= user.user_role.capitalize %></p>
+          <p class="mb-1"><small class="text-muted">Daily Limit:</small> <%= user.daily_consult_limit || "N/A" %></p>
+          <p class="mb-1"><small class="text-muted">Cooldown:</small> <%= user.cooldown_minutes ? "#{user.cooldown_minutes} min" : "N/A" %></p>
+          
 
-
-
-<% if user.availabilities.any? %>
-      <table class="table table-sm mt-3">
-              <thead>
+          <% if user.availabilities.any? %>
+            <hr>
+            <p class="mb-1 fw-semibold small">Weekly Schedule</p>
+            <table class="table table-sm table-borderless mb-0">
+              <thead class="table-light">
                 <tr>
-                  <th>Day</th>
-                  <th>Start</th>
-                  <th>End</th>
+                  <th class="small">Day</th>
+                  <th class="small">Start</th>
+                  <th class="small">End</th>
+                  <th class="small">Off</th>
                 </tr>
               </thead>
               <tbody>
-                <% user.availabilities.order(:day_of_week).each do |availability| %>
+                <% user.availabilities.order(:day_of_week).each do |a| %>
                   <tr>
-                    <td><%= Date::DAYNAMES[availability.day_of_week] %></td>
-                    <td>
-                      <%= availability.start_time&.strftime("%I:%M %p") || "–" %>
-                    </td>
-                    <td>
-                      <%= availability.end_time&.strftime("%I:%M %p") || "–" %>
-                    </td>
+                    <td class="small"><%= Date::DAYNAMES[a.day_of_week] %></td>
+                    <td class="small"><%= a.start_time&.strftime("%I:%M %p") || "–" %></td>
+                    <td class="small"><%= a.end_time&.strftime("%I:%M %p") || "–" %></td>
+                    <td class="small"><%= a.off? ? "Off" : "" %></td>
                   </tr>
                 <% end %>
               </tbody>
-        </table>
-      <% end %>
+            </table>
+          <% end %>
 
-          <%= link_to "Edit", edit_admin_user_path(user), class: "btn btn-sm btn-purple" %>
-        </td>
-      </tr>
-    <% end %>
-    
-  </tbody>
-</table>
-<div id: "conss">
-<%= link_to "← Back", :back, class: "btn btn-purple" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
+
 <br>
+<div>
+  <%= link_to "← Back", :back, class: "btn btn-purple" %>
+</div>
 <br>
 <% if current_user.admin? %>
   <%= link_to "Create New User", new_admin_user_path, class: "btn btn-purple" %>
 <% end %>
-<br>
-<br>
+<br><br>
