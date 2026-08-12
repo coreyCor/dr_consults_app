@@ -41,14 +41,14 @@ class Consult < ApplicationRecord
     self.consult_status ||= STATUS_PENDING
   end
 
-  # For me
+  # For me tests
   def status_text
     case consult_status
     when STATUS_PENDING then "Pending"
     when STATUS_ANSWERED then "Answered"
     else "Unknown"      # all unknows
     end
-  end
+  end                   # dr g asked for this type of consult to be shown in card. quick to know if reg vs fbx neo
   STANDARD = "standard"
   FBX_NEO  = "fbx_neo"
 
@@ -59,7 +59,7 @@ end
 def standard?
   consult_type == STANDARD
 end
-
+# border logic for cards of consults
 def unread_for?(user)
   assigned_to_id == user&.id && read_at.nil?
 end

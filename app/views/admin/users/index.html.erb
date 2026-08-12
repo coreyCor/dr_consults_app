@@ -1,5 +1,3 @@
-<h2 class="pageheader"><i>All users</i></h2>
-<br>
 
 <% if current_user.admin? %>
   <%= link_to "Create New User +", new_admin_user_path, class: "btn btn-purple" %>
@@ -7,35 +5,72 @@
 
 <br><br>
 
-<%= link_to "📅 7 Day Path Schedule", weekly_schedule_admin_users_path, class: "btn btn-outline-primary mb-3" %>
 
-<br><br>
 
-<div class="row row-cols-1 row-cols-md-2 g-4">
-  <% @users.order(:name).each do |user| %>
-    <div class="col">
-      <div class="card h-100 shadow-sm">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <strong><%= user.name %></strong>
-          <%= link_to "Edit", edit_admin_user_path(user), class: "btn btn-sm btn-purple" %>
-        </div>
-        <div class="card-body">
-          <p class="mb-1"><small class="text-muted">Email:</small> <%= user.email %></p>
-          <p class="mb-1"><small class="text-muted">Role:</small> <%= user.user_role.capitalize %></p>
-          <p class="mb-1"><small class="text-muted">Daily Limit:</small> <%= user.daily_consult_limit || "N/A" %></p>
-          <p class="mb-1"><small class="text-muted">Cooldown:</small> <%= user.cooldown_minutes ? "#{user.cooldown_minutes} min" : "N/A" %></p>
+<br>
+<hr>
+  <div class="float-end">
+  <%= link_to "📅  - 7 Day Path Schedule", weekly_schedule_admin_users_path, class: "btn btn-purple mb-3" %>
+  </div>
+<br>
+
+<h2 class="pageheader">Users</h2>
+<div class="col-md-4">
+  <div class="input-group mb-3">
+    <span class="input-group-text">
+      <i class="bi bi-search"></i>
+    </span>
+    <input type="text"
+           id="userSearch"
+           class="form-control"
+           placeholder="Search users...">
+  </div>
+
+  
+</div>
+<br>
+<br>
+<div class="accordion shadow-sm" id="usersAccordion">
+  <% @users.order(:name).each_with_index do |user, index| %>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading-<%= user.id %>">
+        <button class="accordion-button collapsed d-flex justify-content-between align-items-center"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse-<%= user.id %>"
+                aria-expanded="false"
+                aria-controls="collapse-<%= user.id %>">
+          <span class="fw-semibold"><%= user.name %></span>
           
+        </button>
+      </h2>
+      <div id="collapse-<%= user.id %>"
+           class="accordion-collapse collapse"
+           aria-labelledby="heading-<%= user.id %>"
+           data-bs-parent="#usersAccordion">
+        <div class="accordion-body">
 
+          <%# User details %>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <p class="mb-1"><small class="text-muted">Email:</small> <%= user.email %></p>
+              <p class="mb-1"><small class="text-muted">Daily Limit:</small> <%= user.daily_consult_limit || "N/A" %></p>
+              <p class="mb-1"><small class="text-muted">Cooldown:</small> <%= user.cooldown_minutes ? "#{user.cooldown_minutes} min" : "N/A" %></p>
+              <p class="mb-1"><small class="text-muted">Works Tomorrow:</small> <%= user.works_tomorrow? ? "✅" : "❌" %></p>
+            </div>
+          </div>
+
+          <%# Weekly schedule %>
           <% if user.availabilities.any? %>
             <hr>
-            <p class="mb-1 fw-semibold small">Weekly Schedule</p>
-            <table class="table table-sm table-borderless mb-0">
+            <p class="mb-2 fw-semibold small">Weekly Schedule</p>
+            <table class="table table-sm table-borderless mb-3">
               <thead class="table-light">
                 <tr>
                   <th class="small">Day</th>
                   <th class="small">Start</th>
                   <th class="small">End</th>
-                  <th class="small">Off</th>
+                  <th class="small">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -44,12 +79,20 @@
                     <td class="small"><%= Date::DAYNAMES[a.day_of_week] %></td>
                     <td class="small"><%= a.start_time&.strftime("%I:%M %p") || "–" %></td>
                     <td class="small"><%= a.end_time&.strftime("%I:%M %p") || "–" %></td>
-                    <td class="small"><%= a.off? ? "Off" : "" %></td>
+                    <td class="small">
+                      <% if a.off? %>
+                        <span class="badge bg-secondary">Off</span>
+                      <% else %>
+                        <span class="badge bg-success">Working</span>
+                      <% end %>
+                    </td>
                   </tr>
                 <% end %>
               </tbody>
             </table>
           <% end %>
+
+          <%= link_to "Edit", edit_admin_user_path(user), class: "btn btn-sm btn-purple" %>
 
         </div>
       </div>
@@ -66,3 +109,15 @@
   <%= link_to "Create New User", new_admin_user_path, class: "btn btn-purple" %>
 <% end %>
 <br><br>
+
+
+
+<script>
+  document.getElementById('userSearch').addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    document.querySelectorAll('#usersAccordion .accordion-item').forEach(function(item) {
+      const name = item.querySelector('.accordion-button span').textContent.toLowerCase();
+      item.style.display = name.includes(query) ? '' : 'none';
+    });
+  });
+</script>

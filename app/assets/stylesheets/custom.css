@@ -51,8 +51,9 @@ a {
   grid-template-columns: 1fr;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  height: 450px;
+  height: 625px;
   overflow: scroll;
+
   
 }
 
@@ -191,3 +192,7 @@ body {
   filter: invert(1);
 }
 
+
+.alert {
+  margin-top: 10px;
+}
