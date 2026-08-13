@@ -1,4 +1,3 @@
-
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
@@ -49,12 +48,12 @@ a {
 .availability-table {
   display: grid;
   grid-template-columns: 1fr;
-  border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
+  border: 1px solid #d6e3f0;
+  border-radius: 0;
   height: 625px;
-  overflow: scroll;
-
-  
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .table-header,
@@ -67,32 +66,47 @@ a {
 .table-header {
   background: #f8f9fa;
   font-weight: 600;
-  border-bottom: 1px solid #dee2e6;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
 .table-header > div,
 .table-row > div {
   padding: 0.75rem;
-  border-right: 1px solid #dee2e6;
+
+  
 }
 
-.table-header > div:last-child,
-.table-row > div:last-child {
-  border-right: none;
-}
 
-.table-row {
-  border-bottom: 1px solid #dee2e6;
-}
 
 .table-row:hover {
   background: #f9f9f9;
+  border: #000000;
 }
 
 
+.table-row:last-child {
+  border-bottom: none;
+ 
+}
 
 
+.availability-wrapper {
+  position: relative;
+}
 
+.availability-wrapper::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  pointer-events: none;
+  z-index: 1;
+}
 
 
 .pageheader {

@@ -67,7 +67,8 @@
   <%# Specialty Sidebar — only show when logged in %>
   <% if user_signed_in? %>
 
-    <div id="specialty-sidebar" class="border-end bg-light d-none d-lg-block" style="width: 210px; height: 100vh; flex-shrink: 0; overflow-y: auto;">
+    <div id="specialty-sidebar" class="border-end bg-light d-none d-lg-block" 
+     style="width: 210px; height: calc(100vh - 56px); flex-shrink: 0; overflow-y: auto; position: sticky; top: 56px; align-self: flex-start;">
       <div class="px-2 pt-2 pb-3">
         
         <br>
