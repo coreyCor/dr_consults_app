@@ -102,7 +102,7 @@ class ConsultsController < ApplicationController
    end
 
 
-     def taskscreen
+      def taskscreen
        # Show all users who can receive consults
        @eligible_users = User
             .receiving_consults
@@ -110,9 +110,9 @@ class ConsultsController < ApplicationController
             .includes(:availabilities, :assigned_consults)
             .select(&:works_today?)
        @consults = current_user.assigned_consults.order(created_at: :desc)
-     end
+      end
 
-  private
+private
 
   def set_consult
     @consult = Consult.find(params[:id])

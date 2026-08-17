@@ -8,19 +8,19 @@
 
 
 <div class = "text-start">
-   <small class="text-muted">↕ Scroll inside table to see all pathologists</small>
+   <small class="text-muted"> ↕ Scroll inside table to see all pathologists</small>
 
 </div>
 <br>
 <div class="availability-wrapper">
   <div class="availability-table" >
+    <div class="table-header">
+      <div>Pathologist</div>
+      <div>Current Local Time</div>
+      <div>Available for Assist</div>
+      <div>Works Tomorrow?</div>
+    </div>
 
-  <div class="table-header">
-    <div>Pathologist</div>
-    <div>Current Local Time</div>
-    <div>Available for Assist </div>
-    <div>Works Tomorrow?</div>
-  </div>
 
   <% @eligible_users.each do |user| %>
     <%= turbo_frame_tag "row_frame_#{user.id}",
@@ -48,3 +48,10 @@
 <br>
 <br>
 <br>
+
+
+
+
+
+
+

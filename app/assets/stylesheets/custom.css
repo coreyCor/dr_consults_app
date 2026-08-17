@@ -45,6 +45,7 @@ a {
 }
 
 
+
 .availability-table {
   display: grid;
   grid-template-columns: 1fr;
@@ -103,7 +104,7 @@ a {
   left: 0;
   right: 0;
   height: 60px;
-  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75));
   pointer-events: none;
   z-index: 1;
 }
