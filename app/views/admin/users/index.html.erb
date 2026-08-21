@@ -61,36 +61,43 @@
           </div>
 
           <%# Weekly schedule %>
-          <% if user.availabilities.any? %>
-            <hr>
-            <p class="mb-2 fw-semibold small">Weekly Schedule</p>
-            <table class="table table-sm table-borderless mb-3">
-              <thead class="table-light">
-                <tr>
-                  <th class="small">Day</th>
-                  <th class="small">Start</th>
-                  <th class="small">End</th>
-                  <th class="small">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% user.availabilities.order(:day_of_week).each do |a| %>
-                  <tr>
-                    <td class="small"><%= Date::DAYNAMES[a.day_of_week] %></td>
-                    <td class="small"><%= a.start_time&.strftime("%I:%M %p") || "–" %></td>
-                    <td class="small"><%= a.end_time&.strftime("%I:%M %p") || "–" %></td>
-                    <td class="small">
-                      <% if a.off? %>
-                        <span class="badge bg-secondary">Off</span>
-                      <% else %>
-                        <span class="badge bg-success">Working</span>
-                      <% end %>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          <% end %>
+          <%# Weekly schedule %>
+<% if user.availabilities.any? %>
+  <hr>
+  <p class="mb-2 fw-semibold small">
+    Weekly Schedule
+    <span class="text-muted fw-normal">— <%= user.time_zone %></span>
+  </p>
+  <% Time.use_zone(user.time_zone) do %>
+    <table class="table table-sm table-borderless mb-3">
+      <thead class="table-light">
+        <tr>
+          <th class="small">Day</th>
+          <th class="small">Start</th>
+          <th class="small">End</th>
+          <th class="small">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% user.availabilities.order(:day_of_week).each do |a| %>
+          <tr>
+            <td class="small"><%= Date::DAYNAMES[a.day_of_week] %></td>
+            <td class="small"><%= a.start_time&.strftime("%I:%M %p") || "–" %></td>
+            <td class="small"><%= a.end_time&.strftime("%I:%M %p") || "–" %></td>
+            <td class="small">
+              <% if a.off? %>
+                <span class="badge bg-secondary">Off</span>
+              <% else %>
+                <span class="badge bg-success">Working</span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+<% end %>
+      
 
           <%= link_to "Edit", edit_admin_user_path(user), class: "btn btn-sm btn-purple" %>
 

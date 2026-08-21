@@ -7,9 +7,9 @@
 
       <% if available %>
         <%= link_to user.name,
-                    new_consult_path(assigned_to_id: user.id),
-                    data: { turbo_frame: "_top" },
-                    class: "fw-semibold" %>
+              new_consult_path(assigned_to_id: user.id),
+              data: { turbo_frame: "_top" },
+              class: "fw-semibold" %>
       <% else %>
         <span class="text-muted"><%= user.name %></span>
         <span class="material-symbols-outlined">pets</span>
@@ -21,12 +21,16 @@
       <%= user.time_zone %>
     </div>
 
-    <div>
-      <% if available %>
-        <span class="badge bg-success">Available</span>
+    <div><%#for badge placment in future ...like text strt -end -center %>
+      <% case user.badge_status %>
+      <% when :available %>
+        <span class="badge bg-success">Available </span>
+      <% when :done %>
+        <span class="badge bg-light text-dark border">Finished &nbsp</span>
       <% else %>
-        <span class="badge bg-secondary">Paused</span>
+        <span class="badge bg-secondary">Paused &nbsp</span>
       <% end %>
+      
     </div>
 
     <div>

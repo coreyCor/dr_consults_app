@@ -161,6 +161,37 @@ end
     Time.use_zone(time_zone) { within_daily_limit? && past_cooldown? }
   end
 
+
+
+
+def badge_status
+  return :done unless within_daily_limit?
+
+  Time.use_zone(time_zone) do
+    now = Time.zone.now
+    today = now.wday
+    availability = availabilities.find { |a| a.day_of_week == today }
+
+    if availability && availability.start_minute && availability.end_minute
+      now_minutes = now.hour * 60 + now.min
+      return :done if now_minutes > availability.end_minute
+    end
+  end
+
+  return :paused unless past_cooldown?
+  return :paused unless available_now?
+
+  :available
+end
+
+
+
+
+
+
+
+
+
   def within_daily_limit?
     return true unless daily_consult_limit
 
