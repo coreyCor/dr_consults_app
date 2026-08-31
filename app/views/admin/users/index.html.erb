@@ -31,7 +31,7 @@
 <br>
 <br>
 <div class="accordion shadow-sm" id="usersAccordion">
-  <% @users.order(:name).each_with_index do |user, index| %>
+  <% @users.sort_by { |u| [u.last_name.downcase, u.name.downcase] }.each_with_index do |user, index| %>
     <div class="accordion-item">
       <h2 class="accordion-header" id="heading-<%= user.id %>">
         <button class="accordion-button collapsed d-flex justify-content-between align-items-center"

@@ -82,13 +82,13 @@
           "Bone" => ["Borst", "Cavender", "Fanzone", "Skirpstunas"],
           "Cardiovascular" => ["Aceino", "Ellis", "Fry"],
           "Dermatopathology" => ["Cavender", "Herd", "Locke", "Myers", "Piedra-Mora", "Sanchez", "Sweeney", "Tappe", "Turek", "Zoll"],
-          "Equine" => ["Fisher", "Fry", "Krotec", "Myers", "Scanlon", "Schiller", "Skirpstunas", "Smith", "Sweeney", "Traslavina", "Watanabe", "Zoll"],
-          "Fish" => ["Ford", "Imanse", "Rice", "Skirpstunas", "Traslavina"],
+          "Equine" => ["Fisher", "Ford", "Fry", "Hauck", "Krotec", "Myers", "Scanlon", "Schiller", "Skirpstunas", "Smith", "Sweeney", "Traslavina", "Watanabe", "Zoll"],
+          "Fish" => ["Ford", "Hauck", "Imanse", "Rice", "Skirpstunas", "Traslavina"],
           "Gastrointestinal" => ["Bacmeister", "Franko", "Gerdin", "Locke", "Myers", "Schiller", "Vanderpool"],
           "Hepatobiliary" => ["Bera", "Fry", "Gerdin", "Popielarczyk", "Sokol (Ch)", "Traslavina", "Vanderpool"],
           "Immunohistochemistry" => ["Bacmeister", "Cavender", "Ehrensing", "Huang", "Labelle", "Oliveira"],
-          "Infectious Diseases" => ["Borst", "Christensen", "Fisher", "Fry", "Hauck", "Imanse", "McDermott", "Rice", "Traslavina", "Watanabe", "Yau"],
-          "Farm / Large Animal" => ["Aceino", "Fisher", "Ford", "Fry", "Hauck", "Imanse", "McDermott", "Myers", "Popielarczyk", "Roady", "Skirpstunas", "Smith", "Sweeney", "Traslavina", "Watanabe"],
+          "Infectious Diseases" => ["Borst", "Christensen", "Fisher", "Ford", "Fry", "Hauck", "Imanse", "McDermott", "Rice", "Traslavina", "Watanabe", "Yau"],
+          "Large Animal / Farm" => ["Aceino", "Fisher", "Ford", "Fry", "Hauck", "Imanse", "McDermott", "Myers", "Popielarczyk", "Roady", "Skirpstunas", "Smith", "Sweeney", "Traslavina", "Watanabe"],
           "Neuropathology" => ["Bacmeister", "Oliveira", "Popielarczyk", "Sanchez", "Traslavina"],
           "Ocular" => ["Ellis (Ch)", "Fisher", "Krotec", "Labelle", "Lund", "Ranck", "Roady", "Scanlon"],
           "Oncologic" => ["Aceino (PCT)", "Bacmeister (PCT)", "Bera", "Boker", "Ehrensing (PCT)", "Epperson", "Franko", "Fry", "Gerdin", "Iverson", "Krotec", "Labelle (PCT)", "Lin", "Locke", "Myers", "Oliveira (PCT Ch)", "Ranck (PCT)", "Scanlon (PCT)", "Schiller", "Skirpstunas", "Smith (PCT)", "Tappe", "Vanderpool", "Zoll"],
@@ -144,7 +144,8 @@
       <% end %>
 
       <div class="text-start mb-2">
-        <%= image_tag "hero.jpg", class: "ms-0", style: "width: 175px; height: auto;" %>
+       <%# <%= image_tag "hero.jpg", class: "ms-0", style: "width: 175px; height: auto;" %> 
+        <%= image_tag "hero.jpg", style: "width: 175px; height: auto; margin-left: -20px;" %>
       </div>
 
       <%= yield %>

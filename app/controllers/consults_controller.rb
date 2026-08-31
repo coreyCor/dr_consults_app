@@ -87,12 +87,12 @@ class ConsultsController < ApplicationController
 
   # GET /consults/mine
   def mine
-    @consults = current_user.asked_consults.order(created_at: :desc)
+    @consults = current_user.asked_consults.order(created_at: :desc).limit(10)
   end
 
   # GET /consults/assigned
   def assigned
-    @consults = current_user.assigned_consults.order(created_at: :desc)
+    @consults = current_user.assigned_consults.order(created_at: :desc).limit(20)
   end
 
    def schedule

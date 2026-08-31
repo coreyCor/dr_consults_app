@@ -1,21 +1,10 @@
-
-<h2 class="pageheader">Assists I requested </h2>
-
+<h2 class="pageheader text-start">Assists I Requested </h2>
 <br>
-<br>
-<hr>
-<br>
-
-
-
+ <p class="text-muted small text-start"><i>last 10 requested...</i></p>
  <%= render partial: "consults/consult",
              collection: @consults,
              as: :consult,
              locals: { viewer: current_user } %>
-
-
-
-
 
 <br>
 <br>

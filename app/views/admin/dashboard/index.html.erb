@@ -1,4 +1,6 @@
-<h2 class="pageheader"><i><u>Admin Dashboard</u></i></h2>
+<h2 class="pageheader">Admin Dashboard</h2>
+<br>
+<hr>
 <br>
 
 <%# Stat cards %>
@@ -20,47 +22,76 @@
     </div>
   </div>
 </div>
+<br>
+<p class="text-muted small">Showing the last 30 days</p>
+<br>
 
-<%# Consults table %>
-<div class="table-responsive">
-  <table class="table table-bordered table-hover align-middle">
-    <thead class="table-light">
-      <tr>
-        <th>Accession</th>
-        <th>Type</th>
-        <th>Requested By</th>
-        <th>Assigned To</th>
-        <th>Sent</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @consults.each do |consult| %>
-        <tr>
-          <td>
-            <%= link_to consult.title,
-                consult.fbx_neo? ? fbx_neo_consult_path(consult) : consult_path(consult) %>
-          </td>
-          <td>
-            <% if consult.fbx_neo? %>
-              <span class="badge bg-danger">FBX NEO</span>
-            <% else %>
-              <span class="badge bg-secondary">Standard</span>
-            <% end %>
-          </td>
-          <td><%= consult.asked_by&.name %></td>
-          <td>
-            <% if consult.fbx_neo? %>
-              Team (<%= consult.consult_assignments.size %>)
-            <% else %>
-              <%= consult.assigned_to&.name || "Unassigned" %>
-            <% end %>
-          </td>
-          <td><%= time_ago_in_words(consult.created_at) %> ago</td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+<%# Consults grouped by date %>
+<% if @consults_by_date.empty? %>
+  <p class="text-muted">No assists yet.</p>
+<% else %>
+  <div class="accordion shadow-sm" id="consultsAccordion">
+    <% @consults_by_date.each_with_index do |(date, consults), index| %>
+      <% slug = date.strftime("%Y-%m-%d") %>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading-<%= slug %>">
+          <button class="accordion-button <%= "collapsed" unless index.zero? %>"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse-<%= slug %>"
+                  aria-expanded="<%= index.zero? %>"
+                  aria-controls="collapse-<%= slug %>">
+            <span class="fw-semibold"><%= date.strftime("%B %-d, %Y") %></span> &nbsp;
+            <span>Total : <%= consults.size %></span>
+          </button>
+        </h2>
+        <div id="collapse-<%= slug %>"
+             class="accordion-collapse collapse <%= "show" if index.zero? %>"
+             aria-labelledby="heading-<%= slug %>">
+          <div class="accordion-body p-0">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>Accession</th>
+                  <th>Type</th>
+                  <th>Requested By</th>
+                  <th>Assigned To</th>
+                  <th>Sent</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% consults.each do |consult| %>
+                  <tr>
+                    <td>
+                      <%= link_to consult.title,
+                          consult.fbx_neo? ? fbx_neo_consult_path(consult) : consult_path(consult) %>
+                    </td>
+                    <td>
+                      <% if consult.fbx_neo? %>
+                        <span class="badge bg-danger">FBX NEO</span>
+                      <% else %>
+                        <span class="badge bg-secondary">Standard</span>
+                      <% end %>
+                    </td>
+                    <td><%= consult.asked_by&.name %></td>
+                    <td>
+                      <% if consult.fbx_neo? %>
+                        Team (<%= consult.consult_assignments.size %>)
+                      <% else %>
+                        <%= consult.assigned_to&.name || "Unassigned" %>
+                      <% end %>
+                    </td>
+                    <td><%= consult.created_at.in_time_zone.strftime("%I:%M %p") %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 
 <br>
 <%= link_to "← Back", root_path, class: "btn btn-primary" %>

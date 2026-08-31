@@ -184,9 +184,15 @@ def badge_status
   :available
 end
 
+#sorting lastnames
 
-
-
+def last_name
+  name.to_s
+      .sub(/\A(Dr\.?|Mr\.?|Ms\.?|Mrs\.?)\s+/i, "")
+      .split
+      .last
+      .to_s
+end
 
 
 

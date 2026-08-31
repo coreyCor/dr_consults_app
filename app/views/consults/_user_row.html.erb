@@ -21,20 +21,22 @@
       <%= user.time_zone %>
     </div>
 
-    <div><%#for badge placment in future ...like text strt -end -center %>
-      <% case user.badge_status %>
-      <% when :available %>
-        <span class="badge bg-success">Available </span>
-      <% when :done %>
-        <span class="badge bg-light text-dark border">Finished &nbsp</span>
-      <% else %>
-        <span class="badge bg-secondary">Paused &nbsp</span>
-      <% end %>
-      
-    </div>
+    <div>
+  <% case user.badge_status %>
+  <% when :available %>
+    <span class="badge rounded-pill bg-success border border-success text-light">Available</span>
+  <% when :done %>
+    <span class="badge rounded-pill bg-transparent border border-secondary text-dark">Finished </span>
+  <% else %>
+    <span class="badge rounded-pill bg-transparent border border-secondary text-dark">Paused  ! </span>
+  <% end %>
+  </div>
+
+
 
     <div>
       <%= user.works_tomorrow? ? "Y" : "N" %>
     </div>
   </div>
 </turbo-frame>
+<p>&nbsp</p>
