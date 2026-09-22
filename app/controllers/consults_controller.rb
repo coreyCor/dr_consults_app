@@ -102,15 +102,27 @@ class ConsultsController < ApplicationController
    end
 
 
-      def taskscreen
-       # Show all users who can receive consults
-       @eligible_users = User
-            .receiving_consults
-            .where.not(id: current_user.id)
-            .includes(:availabilities, :assigned_consults)
-            .select(&:works_today?)
-       @consults = current_user.assigned_consults.order(created_at: :desc)
-      end
+    #  def taskscreen
+    # Show all users who can receive consults
+    #  @eligible_users = User
+    #      .receiving_consults
+    #     .where.not(id: current_user.id)
+    #    .includes(:availabilities, :assigned_consults)
+    #   .select(&:works_today?)
+    # @consults = current_user.assigned_consults.order(created_at: :desc)
+    # end
+    #
+    #
+    #
+    def taskscreen
+  # Show all users who can receive consults
+  @eligible_users = User
+    .receiving_consults
+    .where.not(id: current_user.id)
+    .includes(:availabilities, :assigned_consults)
+    .select(&:works_today?)
+    .sort_by { |u| u.last_name.downcase }
+    end
 
 private
 

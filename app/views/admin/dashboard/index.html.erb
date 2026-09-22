@@ -22,6 +22,7 @@
     </div>
   </div>
 </div>
+
 <br>
 <p class="text-muted small">Showing the last 30 days</p>
 <br>
@@ -54,8 +55,12 @@
                 <tr>
                   <th>Accession</th>
                   <th>Type</th>
-                  <th>Requested By</th>
-                  <th>Assigned To</th>
+                  <th class="sortable-col" data-col="2" style="cursor: pointer;">
+                    Requested By <i class="bi bi-chevron-expand ms-1"></i>
+                  </th>
+                  <th class="sortable-col" data-col="3" style="cursor: pointer;">
+                    Assigned To <i class="bi bi-chevron-expand ms-1"></i>
+                  </th>
                   <th>Sent</th>
                 </tr>
               </thead>
@@ -73,8 +78,10 @@
                         <span class="badge bg-secondary">Standard</span>
                       <% end %>
                     </td>
-                    <td><%= consult.asked_by&.name %></td>
-                    <td>
+                    <td data-sort="<%= consult.asked_by&.last_name&.downcase %>">
+                      <%= consult.asked_by&.name %>
+                    </td>
+                    <td data-sort="<%= consult.fbx_neo? ? "" : consult.assigned_to&.last_name&.downcase %>">
                       <% if consult.fbx_neo? %>
                         Team (<%= consult.consult_assignments.size %>)
                       <% else %>
@@ -95,3 +102,39 @@
 
 <br>
 <%= link_to "← Back", root_path, class: "btn btn-primary" %>
+
+<script>
+  document.querySelectorAll('.sortable-col').forEach(function(header) {
+    header.addEventListener('click', function() {
+      const table = this.closest('table');
+      const tbody = table.querySelector('tbody');
+      const colIndex = parseInt(this.dataset.col, 10);
+      const dir = this.dataset.dir === 'asc' ? 'desc' : 'asc';
+
+      // reset headers in this table only
+      table.querySelectorAll('.sortable-col').forEach(function(h) {
+        h.dataset.dir = '';
+        h.querySelector('i').className = 'bi bi-chevron-expand ms-1';
+      });
+
+      this.dataset.dir = dir;
+      this.querySelector('i').className = dir === 'asc'
+        ? 'bi bi-chevron-up ms-1'
+        : 'bi bi-chevron-down ms-1';
+
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+
+      rows.sort(function(a, b) {
+        const cellA = a.children[colIndex];
+        const cellB = b.children[colIndex];
+        const valA = (cellA.dataset.sort || cellA.textContent).trim().toLowerCase();
+        const valB = (cellB.dataset.sort || cellB.textContent).trim().toLowerCase();
+        return dir === 'asc'
+          ? valA.localeCompare(valB)
+          : valB.localeCompare(valA);
+      });
+
+      rows.forEach(function(r) { tbody.appendChild(r); });
+    });
+  });
+</script>
