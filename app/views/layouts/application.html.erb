@@ -81,22 +81,22 @@
         <% {   
           "Bone" => ["Borst", "Cavender", "Fanzone", "Skirpstunas"],
           "Cardiovascular" => ["Aceino", "Ellis", "Fry"],
-          "Dermatopathology" => ["Cavender", "Herd", "Locke", "Myers", "Piedra-Mora", "Sanchez", "Sweeney", "Tappe", "Turek", "Zoll"],
+          "Dermatopathology" => ["Cavender", "Herd", "Locke: Derm Chair", "Myers", "Piedra-Mora", "Sanchez: Oral Chair", "Sweeney", "Tappe", "Turek", "Zoll"],
           "Equine" => ["Fisher", "Ford", "Fry", "Hauck", "Krotec", "Myers", "Scanlon", "Schiller", "Skirpstunas", "Smith", "Sweeney", "Traslavina", "Watanabe", "Zoll"],
           "Fish" => ["Ford", "Hauck", "Imanse", "Rice", "Skirpstunas", "Traslavina"],
           "Gastrointestinal" => ["Bacmeister", "Franko", "Gerdin", "Locke", "Myers", "Schiller", "Vanderpool"],
-          "Hepatobiliary" => ["Bera", "Fry", "Gerdin", "Popielarczyk", "Sokol (Ch)", "Traslavina", "Vanderpool"],
+          "Hepatobiliary" => ["Bera", "Fry", "Gerdin", "Popielarczyk", "Sokol: Chair", "Traslavina", "Vanderpool"],
           "Immunohistochemistry" => ["Bacmeister", "Cavender", "Ehrensing", "Huang", "Labelle", "Oliveira"],
           "Infectious Diseases" => ["Borst", "Christensen", "Fisher", "Ford", "Fry", "Hauck", "Imanse", "McDermott", "Rice", "Traslavina", "Watanabe", "Yau"],
-          "Large Animal / Farm" => ["Aceino", "Fisher", "Ford", "Fry", "Hauck", "Imanse", "McDermott", "Myers", "Popielarczyk", "Roady", "Skirpstunas", "Smith", "Sweeney", "Traslavina", "Watanabe"],
+          "Large Animal / Farm" => ["Aceino", "Fisher", "Ford", "Fry", "Hauck", "Imanse: Chair", "McDermott", "Myers", "Popielarczyk", "Roady", "Skirpstunas", "Smith", "Sweeney", "Traslavina", "Watanabe"],
           "Neuropathology" => ["Bacmeister", "Oliveira", "Popielarczyk", "Sanchez", "Traslavina"],
-          "Ocular" => ["Ellis (Ch)", "Fisher", "Krotec", "Labelle", "Lund", "Ranck", "Roady", "Scanlon"],
-          "Oncologic" => ["Aceino (PCT)", "Bacmeister (PCT)", "Bera", "Boker", "Ehrensing (PCT)", "Epperson", "Franko", "Fry", "Gerdin", "Iverson", "Krotec", "Labelle (PCT)", "Lin", "Locke", "Myers", "Oliveira (PCT Ch)", "Ranck (PCT)", "Scanlon (PCT)", "Schiller", "Skirpstunas", "Smith (PCT)", "Tappe", "Vanderpool", "Zoll"],
-          "Oral" => ["Fry", "Harvey (OT)", "Huang (OT)", "Imanse (OT)", "Lund (OT)", "Sanchez (OT Ch)"],
+          "Ocular" => ["Ellis: Chair", "Fisher", "Herd", "Krotec", "Labelle", "Lund", "Ranck", "Roady", "Scanlon"],
+          "Oncologic" => ["Aceino (PCT)", "Bacmeister (PCT)", "Bera", "Boker", "Ehrensing (PCT)", "Epperson", "Franko", "Fry", "Gerdin", "Iverson", "Krotec", "Labelle (PCT)", "Lin", "Locke", "Myers", "Oliveira (NEO Chair)", "Ranck (PCT)", "Scanlon (PCT)", "Schiller", "Skirpstunas", "Smith (PCT)", "Tappe", "Vanderpool", "Zoll"],
+          "Oral" => ["Fry", "Harvey (OT)", "Huang (OT)", "Imanse (OT)", "Lund (OT)", "Sanchez: Chair"],
           "Renal / Urinary" => ["Gerdin"],
           "Reproductive" => ["Hauck", "Herd", "Lin", "Lund", "Ranck", "Skirpstunas"],
           "Respiratory" => ["Bera", "Ford", "Gerdin"],
-          "Zoo/ PocketPets/ Exotics" => ["Bacmeister - (Sm Mammal)", "Ellis - (Sm Mammal)", "Fisher - (Sm Mammal)", "Ford", "Hauck", "Imanse (Ch)", "McDermott", "Rice", "Schiller", "Skirpstunas", "Sokol", "Traslavina", "Yau"]
+          "Zoo/ PocketPets/ Exotics" => ["Bacmeister", "Ellis ", "Fisher - (Sm Mammal)", "Ford - (fish)", "Hauck", "Imanse: Chair", "McDermott", "Rice - (fish)", "Schiller", "Skirpstunas - (fish)", "Smith - (chicken)", "Sokol", "Traslavina - (fish)", "Yau"]
         }.each_with_index do |(specialty, doctors), index| %>
           <% slug = specialty.downcase.gsub(/[^a-z0-9]/, "-").gsub(/-+/, "-") %>
           <div class="mb-1">
